@@ -189,13 +189,8 @@ function DisasterDefinition({ module }: Pick<CourseModuleViewProps, 'module'>) {
 function DisasterOverview({ module }: Pick<CourseModuleViewProps, 'module'>) {
   return (
     <section className={styles.overviewModule}>
-      <p className={styles.moduleEyebrow}>六类灾害总览</p>
       <h1>{module.title}</h1>
-      <PageGuide text="观察六类灾害常出现的位置和主要危险，重点记住四川三类。" />
-      <div className={styles.overviewMapBand}>
-        <strong>六类灾害识别地图</strong>
-        <span>滑坡、崩塌、泥石流为四川重点防范；另外三类用于拓展识别。</span>
-      </div>
+      <p className={styles.overviewBrief}>滑坡、崩塌、泥石流为四川重点防范；另外三类用于拓展识别。</p>
       <div className={styles.disasterGrid}>
         {disasterCards.map((card) => (
           <article className={styles.disasterCard} data-focus={card.sichuanFocus} key={card.id}>
@@ -234,10 +229,8 @@ function CauseLab({ module }: Pick<CourseModuleViewProps, 'module'>) {
   return (
     <section className={styles.causeLabModule}>
       <div className={styles.labControls}>
-        <p className={styles.moduleEyebrow}>形成原因实验室</p>
         <h1>{module.title}</h1>
-        <PageGuide text="拖动三个因素，观察风险等级和山体剖面如何同步变化。" />
-        <p>{module.teacherScript}</p>
+        <p className={styles.labIntro}>拖动三个因素，观察暴雨、陡坡和人为扰动如何共同提高风险。</p>
         <Slider label="降雨量" hint="越大，雨水越容易进入坡体。" value={rain} onChange={setRain} />
         <Slider label="坡度" hint="越陡，岩土体越容易向下运动。" value={slope} onChange={setSlope} />
         <Slider label="人为扰动" hint="越强，坡脚开挖和坡顶堆土越明显。" value={human} onChange={setHuman} />
@@ -364,9 +357,8 @@ function KeyDisasterCards({
 }: Pick<CourseModuleViewProps, 'module' | 'onSelectModule'>) {
   return (
     <section className={styles.keyDisastersModule}>
-      <p className={styles.moduleEyebrow}>四川重点防范</p>
       <h1>{module.title}</h1>
-      <PageGuide text="点击三张灾害入口卡，进入对应动态演示。" />
+      <p className={styles.keyIntro}>滑坡、崩塌、泥石流是四川山区重点防范的三类地质灾害。</p>
       <div className={styles.keyDisasterGrid}>
         {keyDisasterEntrances.map((item) => (
           <article className={styles.keyDisasterCard} data-hazard={item.id} key={item.id}>
@@ -478,9 +470,7 @@ function SafetyProcess({ module }: Pick<CourseModuleViewProps, 'module'>) {
 
   return (
     <section className={styles.safetyModule}>
-      <p className={styles.moduleEyebrow}>科学避险</p>
       <h1>{module.title}</h1>
-      <PageGuide text="点击前兆分类卡，观察对应危险区域和应对提示。" />
       <div className={styles.safetyFlow}>
         {safetyProcess.map((step, index) => (
           <article key={step}>
@@ -506,7 +496,7 @@ function SafetyProcess({ module }: Pick<CourseModuleViewProps, 'module'>) {
         ))}
       </div>
       <div className={styles.signalExplanation} data-hazard={activeGroup.id}>
-        <strong>{activeGroup.title}</strong>
+        <strong>当前解释</strong>
         <p>{activeGroup.explanation}</p>
       </div>
       <div className={styles.safetyVisualColumn}>
@@ -858,9 +848,8 @@ function QuizModule({ module }: Pick<CourseModuleViewProps, 'module'>) {
   return (
     <section className={styles.quizModule} data-scene={quizVisual.scene}>
       <div className={styles.quizHero}>
-        <p className={styles.moduleEyebrow}>课堂互动</p>
         <h1>{module.title}</h1>
-        <PageGuide text="选一个答案，马上看反馈；答完再进入下一题。" />
+        <p className={styles.quizIntro}>选择一个答案，马上看反馈；老师可带着学生逐题讨论。</p>
         <div className={styles.quizProgressDots}>
           {quizQuestions.map((item, index) => (
             <span
@@ -888,6 +877,18 @@ function QuizModule({ module }: Pick<CourseModuleViewProps, 'module'>) {
             );
           })}
         </div>
+        <div className={styles.quizControls}>
+          <button type="button" onClick={handlePreviousQuestion} disabled={questionIndex === 0}>
+            上一题
+          </button>
+          <button
+            type="button"
+            onClick={handleNextQuestion}
+            disabled={questionIndex === quizQuestions.length - 1}
+          >
+            下一题
+          </button>
+        </div>
       </div>
       <div className={styles.quizMainPanel}>
         <div className={styles.quizCard}>
@@ -908,18 +909,6 @@ function QuizModule({ module }: Pick<CourseModuleViewProps, 'module'>) {
                 {option.label}
               </button>
             ))}
-          </div>
-          <div className={styles.quizControls}>
-            <button type="button" onClick={handlePreviousQuestion} disabled={questionIndex === 0}>
-              上一题
-            </button>
-            <button
-              type="button"
-              onClick={handleNextQuestion}
-              disabled={questionIndex === quizQuestions.length - 1}
-            >
-              下一题
-            </button>
           </div>
         </div>
         <aside className={styles.quizFeedbackPanel} data-status={selectedOption ? (selectedOption.isCorrect ? 'right' : 'wrong') : 'waiting'}>
