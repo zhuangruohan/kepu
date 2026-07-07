@@ -37,6 +37,7 @@ export interface ExtensionHazardDetail {
   danger: string;
   advice: string;
   scene: 'sinkhole' | 'crack' | 'settlement';
+  imagePath: string;
 }
 
 export interface QuizQuestion {
@@ -159,6 +160,7 @@ export const extensionHazardDetails: ExtensionHazardDetail[] = [
     danger: '可能影响车辆、人员、建筑物。',
     advice: '发现坑洞、路面突然下陷时，不要靠近围观。',
     scene: 'sinkhole',
+    imagePath: '/assets/real/extensions/ground-collapse-real-01.webp',
   },
   {
     id: 'ground-crack',
@@ -168,6 +170,7 @@ export const extensionHazardDetails: ExtensionHazardDetail[] = [
     danger: '可能影响房屋、道路、管线。',
     advice: '发现裂缝变宽或延长时，应及时远离并报告。',
     scene: 'crack',
+    imagePath: '/assets/real/extensions/ground-crack-real-01.webp',
   },
   {
     id: 'settlement',
@@ -177,6 +180,7 @@ export const extensionHazardDetails: ExtensionHazardDetail[] = [
     danger: '可能长期影响建筑、道路、排水。',
     advice: '看到地面不均匀下沉、建筑倾斜、路面变形时要警惕。',
     scene: 'settlement',
+    imagePath: '/assets/real/extensions/ground-settlement-real-01.webp',
   },
 ];
 

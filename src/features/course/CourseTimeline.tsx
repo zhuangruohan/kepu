@@ -10,7 +10,7 @@ interface CourseTimelineProps {
 export function CourseTimeline({ modules, currentModuleId, onSelect }: CourseTimelineProps) {
   return (
     <nav className={styles.courseTimeline} aria-label="课程导航">
-      {modules.map((module, index) => {
+      {modules.map((module) => {
         const isActive = module.id === currentModuleId;
 
         return (
@@ -21,7 +21,7 @@ export function CourseTimeline({ modules, currentModuleId, onSelect }: CourseTim
             aria-current={isActive ? 'step' : undefined}
             onClick={() => onSelect(module.id)}
           >
-            <span aria-hidden="true">{index + 1}</span>
+            <span aria-hidden="true" />
             <strong>{module.title}</strong>
           </button>
         );

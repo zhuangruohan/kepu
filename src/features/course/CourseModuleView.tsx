@@ -42,6 +42,15 @@ const quizVisuals: Record<string, { scene: string; label: string; hint: string }
   q8: { scene: 'return', label: '不返回', hint: '生命安全比财物更重要。' },
 };
 
+const formationReferencePath = '/assets/real/formation/formation-cause-reference.webp';
+const summarySloganWebpPath = '/assets/real/summary/summary-safety-slogan.webp';
+const summarySloganPngPath = '/assets/real/summary/summary-safety-slogan.png';
+const keyDisasterCoverPaths: Record<string, string> = {
+  landslide: '/assets/real/key-disasters/key-landslide-cover.webp',
+  collapse: '/assets/real/key-disasters/key-collapse-cover.webp',
+  'debris-flow': '/assets/real/key-disasters/key-debris-flow-cover.webp',
+};
+
 interface CourseModuleViewProps {
   module: CourseModule;
   onSelectModule: (moduleId: string) => void;
@@ -107,7 +116,6 @@ function HeroSection({ module, onSelectModule }: CourseModuleViewProps) {
             进入演示
           </button>
         </div>
-        <CaseAssetSlot slot={realAssetSlots[3]} compact />
       </div>
       <div className={styles.heroSignal}>
         <strong>重点灾害</strong>
@@ -210,6 +218,7 @@ function CauseLab({ module }: Pick<CourseModuleViewProps, 'module'>) {
   const [rain, setRain] = useState(72);
   const [slope, setSlope] = useState(64);
   const [human, setHuman] = useState(38);
+  const [isDiagramOpen, setIsDiagramOpen] = useState(false);
   const riskScore = Math.round((rain * 0.42 + slope * 0.34 + human * 0.24));
   const riskLevel =
     riskScore > 78 ? '危险' : riskScore > 58 ? '预警' : riskScore > 34 ? '注意' : '稳定';
@@ -232,6 +241,9 @@ function CauseLab({ module }: Pick<CourseModuleViewProps, 'module'>) {
         <Slider label="降雨量" hint="越大，雨水越容易进入坡体。" value={rain} onChange={setRain} />
         <Slider label="坡度" hint="越陡，岩土体越容易向下运动。" value={slope} onChange={setSlope} />
         <Slider label="人为扰动" hint="越强，坡脚开挖和坡顶堆土越明显。" value={human} onChange={setHuman} />
+        <button className={styles.diagramButton} type="button" onClick={() => setIsDiagramOpen(true)}>
+          查看形成原因图解
+        </button>
       </div>
       <div
         className={styles.labScene}
@@ -282,7 +294,38 @@ function CauseLab({ module }: Pick<CourseModuleViewProps, 'module'>) {
           <span key={item}>{item}</span>
         ))}
       </div>
+      {isDiagramOpen ? <FormationDiagramPanel onClose={() => setIsDiagramOpen(false)} /> : null}
     </section>
+  );
+}
+
+function FormationDiagramPanel({ onClose }: { onClose: () => void }) {
+  const [hasImageError, setHasImageError] = useState(false);
+
+  return (
+    <div className={styles.diagramOverlay} role="dialog" aria-modal="true" aria-label="形成原因图解">
+      <div className={styles.diagramPanel}>
+        <div className={styles.diagramHeader}>
+          <strong>形成原因图解</strong>
+          <button type="button" onClick={onClose} aria-label="关闭形成原因图解">
+            ×
+          </button>
+        </div>
+        {hasImageError ? (
+          <div className={styles.diagramFallback}>
+            <strong>暴雨 + 陡坡 + 人为扰动</strong>
+            <span>三类因素叠加，风险显著升高。</span>
+          </div>
+        ) : (
+          <img
+            src={formationReferencePath}
+            alt="形成原因参考图"
+            onError={() => setHasImageError(true)}
+          />
+        )}
+        <p>暴雨、陡坡和人为扰动叠加，会显著提高地质灾害风险。</p>
+      </div>
+    </div>
   );
 }
 
@@ -327,7 +370,7 @@ function KeyDisasterCards({
       <div className={styles.keyDisasterGrid}>
         {keyDisasterEntrances.map((item) => (
           <article className={styles.keyDisasterCard} data-hazard={item.id} key={item.id}>
-            <span className={styles.keyScene} />
+            <KeyDisasterCover id={item.id} title={item.title} />
             <strong className={styles.riskTag}>四川重点防范</strong>
             <h2>{item.title}</h2>
             <p>{item.scene}</p>
@@ -338,13 +381,31 @@ function KeyDisasterCards({
               <dd>{item.rule}</dd>
             </dl>
             <button type="button" onClick={() => onSelectModule(item.targetModuleId)}>
-              查看动态演示
+              进入演示
             </button>
-            <CaseAssetSlot slot={findAssetSlot(item.id)} compact />
           </article>
         ))}
       </div>
     </section>
+  );
+}
+
+function KeyDisasterCover({ id, title }: { id: string; title: string }) {
+  const [hasImageError, setHasImageError] = useState(false);
+
+  return (
+    <div className={styles.keyScene} data-hazard={id}>
+      {hasImageError ? (
+        <span className={styles.keySceneFallback}>{title}</span>
+      ) : (
+        <img
+          className={styles.keySceneImage}
+          src={keyDisasterCoverPaths[id]}
+          alt={`${title}真实场景`}
+          onError={() => setHasImageError(true)}
+        />
+      )}
+    </div>
   );
 }
 
@@ -448,11 +509,6 @@ function SafetyProcess({ module }: Pick<CourseModuleViewProps, 'module'>) {
       </div>
       <div className={styles.safetyVisualColumn}>
         <SafetyVideoPanel />
-        <div className={styles.safetySignalScene} data-hazard={activeGroup.id}>
-          <span className={styles.safetyMountain}>滑坡坡体</span>
-          <span className={styles.safetyCliff}>崩塌陡坡</span>
-          <span className={styles.safetyValley}>泥石流沟谷</span>
-        </div>
       </div>
       <div className={styles.scenarioWall}>
         <strong>情景判断</strong>
@@ -763,7 +819,7 @@ function ExtensionHazards({ module }: Pick<CourseModuleViewProps, 'module'>) {
       <div className={styles.extensionDetailGrid}>
         {extensionHazardDetails.map((item) => (
           <article className={styles.extensionDetailCard} data-scene={item.scene} key={item.id}>
-            <span className={styles.extensionDetailScene} />
+            <img className={styles.extensionDetailImage} src={item.imagePath} alt={`${item.title}真实示例`} />
             <h2>{item.title}</h2>
             <p>{item.definition}</p>
             <dl>
@@ -803,10 +859,6 @@ function QuizModule({ module }: Pick<CourseModuleViewProps, 'module'>) {
         <p className={styles.moduleEyebrow}>课堂互动</p>
         <h1>{module.title}</h1>
         <PageGuide text="选一个答案，马上看反馈；答完再进入下一题。" />
-        <div className={styles.quizSceneThumb}>
-          <strong>{quizVisual.label}</strong>
-          <span>{quizVisual.hint}</span>
-        </div>
         <div className={styles.quizProgressDots}>
           {quizQuestions.map((item, index) => (
             <span
@@ -816,87 +868,86 @@ function QuizModule({ module }: Pick<CourseModuleViewProps, 'module'>) {
           ))}
         </div>
         <div className={styles.quizProgressList}>
-          {quizQuestions.map((item, index) => (
-            <button
-              className={index === questionIndex ? styles.quizProgressActive : styles.quizProgressItem}
-              key={item.id}
-              type="button"
-              onClick={() => setQuestionIndex(index)}
-            >
-              <span>{index + 1}</span>
-              <strong>{quizVisuals[item.id]?.label ?? '避险判断'}</strong>
-            </button>
-          ))}
+          {quizQuestions.map((item, index) => {
+            const answerId = answers[item.id];
+            const answeredOption = item.options.find((option) => option.id === answerId);
+
+            return (
+              <button
+                className={index === questionIndex ? styles.quizProgressActive : styles.quizProgressItem}
+                data-status={answeredOption ? (answeredOption.isCorrect ? 'right' : 'wrong') : 'waiting'}
+                key={item.id}
+                type="button"
+                onClick={() => setQuestionIndex(index)}
+              >
+                <span>{answeredOption ? (answeredOption.isCorrect ? '✓' : '×') : index + 1}</span>
+                <strong>{quizVisuals[item.id]?.label ?? '避险判断'}</strong>
+              </button>
+            );
+          })}
         </div>
       </div>
-      <div className={styles.quizCard}>
-        <span className={styles.quizCounter}>第 {questionIndex + 1} 题</span>
-        <h2>{question.question}</h2>
-        <div className={styles.quizOptions}>
-          {question.options.map((option) => (
-            <button
-              className={selectedOptionId === option.id ? styles.quizOptionSelected : styles.quizOption}
-              key={option.id}
-              type="button"
-              onClick={() => setAnswers((current) => ({ ...current, [question.id]: option.id }))}
-            >
-              {option.label}
+      <div className={styles.quizMainPanel}>
+        <div className={styles.quizCard}>
+          <div className={styles.quizSceneThumb}>
+            <strong>{quizVisual.label}</strong>
+            <span>{quizVisual.hint}</span>
+          </div>
+          <span className={styles.quizCounter}>第 {questionIndex + 1} 题</span>
+          <h2>{question.question}</h2>
+          <div className={styles.quizOptions}>
+            {question.options.map((option) => (
+              <button
+                className={selectedOptionId === option.id ? styles.quizOptionSelected : styles.quizOption}
+                key={option.id}
+                type="button"
+                onClick={() => setAnswers((current) => ({ ...current, [question.id]: option.id }))}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+          <div className={styles.quizControls}>
+            <button type="button" onClick={handlePreviousQuestion} disabled={questionIndex === 0}>
+              上一题
             </button>
-          ))}
+            <button
+              type="button"
+              onClick={handleNextQuestion}
+              disabled={questionIndex === quizQuestions.length - 1}
+            >
+              下一题
+            </button>
+          </div>
         </div>
-        {selectedOption ? (
-          <p className={selectedOption.isCorrect ? styles.feedbackCorrect : styles.feedbackWrong}>
-            {selectedOption.feedback}
-          </p>
-        ) : (
-          <p className={styles.quizHint}>先选一个答案。</p>
-        )}
-        <div className={styles.quizControls}>
-          <button type="button" onClick={handlePreviousQuestion} disabled={questionIndex === 0}>
-            上一题
-          </button>
-          <button
-            type="button"
-            onClick={handleNextQuestion}
-            disabled={questionIndex === quizQuestions.length - 1}
-          >
-            下一题
-          </button>
-        </div>
+        <aside className={styles.quizFeedbackPanel} data-status={selectedOption ? (selectedOption.isCorrect ? 'right' : 'wrong') : 'waiting'}>
+          <span>答题反馈</span>
+          {selectedOption ? (
+            <>
+              <strong>{selectedOption.isCorrect ? '判断正确' : '再想一想'}</strong>
+              <p>{selectedOption.feedback}</p>
+            </>
+          ) : (
+            <>
+              <strong>选择后查看解释</strong>
+              <p>{quizVisual.hint}</p>
+            </>
+          )}
+          <div className={styles.quizRuleCard}>
+            <b>记住</b>
+            <em>滑坡向两侧跑</em>
+            <em>崩塌远离陡坡</em>
+            <em>泥石流往高处逃</em>
+            <em>生命安全最重要</em>
+          </div>
+        </aside>
       </div>
-      <aside className={styles.quizFeedbackPanel} data-status={selectedOption ? (selectedOption.isCorrect ? 'right' : 'wrong') : 'waiting'}>
-        <span>答题反馈</span>
-        {selectedOption ? (
-          <>
-            <strong>{selectedOption.isCorrect ? '判断正确' : '再想一想'}</strong>
-            <p>{selectedOption.feedback}</p>
-          </>
-        ) : (
-          <>
-            <strong>选择后查看解释</strong>
-            <p>{quizVisual.hint}</p>
-          </>
-        )}
-        <div className={styles.quizRuleCard}>
-          <b>记住</b>
-          <em>滑坡向两侧跑</em>
-          <em>崩塌远离陡坡</em>
-          <em>泥石流往高处逃</em>
-          <em>生命安全最重要</em>
-        </div>
-      </aside>
     </section>
   );
 }
 
 function CourseSummary({ module }: Pick<CourseModuleViewProps, 'module'>) {
   const [visibleCount, setVisibleCount] = useState(1);
-  const reviewCases = disasterCaseStudies.map((study) => ({
-    id: study.id,
-    title: study.title.replace('真实案例 + 避险判断', '案例回顾'),
-    videoPath: study.videoPath,
-    posterPath: study.assetPath,
-  }));
 
   return (
     <section className={styles.summaryModule}>
@@ -906,22 +957,7 @@ function CourseSummary({ module }: Pick<CourseModuleViewProps, 'module'>) {
         <PageGuide text="一起读口诀，再回答四个复盘问题。" />
       </div>
       <div className={styles.summaryStage}>
-        <div className={styles.summaryCaseReel}>
-          <strong>三大灾害案例回顾</strong>
-          {reviewCases.map((item) => (
-            <article className={styles.summaryVideoCard} key={item.id}>
-              <div
-                className={styles.summaryVideoThumb}
-                style={{ '--asset-image': `url("${item.posterPath}")` } as CSSProperties}
-              >
-                {item.videoPath ? (
-                  <video muted playsInline preload="metadata" src={item.videoPath} title={item.title} />
-                ) : null}
-              </div>
-              <span>{item.title}</span>
-            </article>
-          ))}
-        </div>
+        <SummarySloganImage />
         <div className={styles.chantCard}>
           {summaryChant.map((line, index) => (
             <p className={index < visibleCount ? styles.chantLineVisible : styles.chantLine} key={line}>
@@ -946,14 +982,43 @@ function CourseSummary({ module }: Pick<CourseModuleViewProps, 'module'>) {
           <div className={styles.recapPanel}>
             <strong>再来 5 道快速复盘题</strong>
             <div>
-              {reviewPrompts.map((item) => (
+              {reviewPrompts.slice(0, 3).map((item) => (
                 <span key={item}>{item}</span>
               ))}
-              <span>看到危险信号后为什么不能围观？</span>
             </div>
           </div>
         ) : null}
       </div>
     </section>
+  );
+}
+
+function SummarySloganImage() {
+  const [imageSrc, setImageSrc] = useState(summarySloganWebpPath);
+  const [hasImageError, setHasImageError] = useState(false);
+
+  if (hasImageError) {
+    return (
+      <div className={styles.summarySloganFallback}>
+        <strong>生命安全最重要</strong>
+        <span>观察信号 · 提前判断 · 正确逃生 · 不贪财物</span>
+      </div>
+    );
+  }
+
+  return (
+    <figure className={styles.summarySloganImage}>
+      <img
+        src={imageSrc}
+        alt="生命安全最重要安全宣传口号"
+        onError={() => {
+          if (imageSrc === summarySloganWebpPath) {
+            setImageSrc(summarySloganPngPath);
+            return;
+          }
+          setHasImageError(true);
+        }}
+      />
+    </figure>
   );
 }

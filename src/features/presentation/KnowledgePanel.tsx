@@ -8,14 +8,14 @@ interface KnowledgePanelProps {
 
 export function KnowledgePanel({ stage, progress }: KnowledgePanelProps) {
   return (
-    <aside className={styles.knowledgePanel} aria-label="Current stage knowledge">
+    <aside className={styles.knowledgePanel} aria-label="当前阶段知识">
       <p className={styles.panelKicker}>当前阶段</p>
       <h2>{stage.title}</h2>
       <p className={styles.description}>{stage.description}</p>
 
       <dl className={styles.knowledgeList}>
         <div>
-          <dt>教学目标</dt>
+          <dt>目标</dt>
           <dd>{stage.learningObjective}</dd>
         </div>
         <div>

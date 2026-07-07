@@ -10,7 +10,6 @@ export function TeacherScriptPanel({ module }: TeacherScriptPanelProps) {
     <aside className={styles.teacherPanel} aria-label="本页提示">
       <p className={styles.panelEyebrow}>本页提示</p>
       <h2>观察重点</h2>
-      <div className={styles.timeBadge}>{module.timeRange}</div>
       <p className={styles.teacherScript}>{module.teacherScript}</p>
 
       <div className={styles.panelSection}>

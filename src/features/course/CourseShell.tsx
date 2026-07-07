@@ -25,7 +25,7 @@ export function CourseShell() {
           <h1>地质灾害基础科普与防灾避险互动课程</h1>
         </div>
         <div className={styles.currentChapter}>
-          <span>当前页面</span>
+          <span>正在学习</span>
           <strong>{currentModule.title}</strong>
         </div>
         <CourseProgress modules={courseModules} currentIndex={currentIndex} />

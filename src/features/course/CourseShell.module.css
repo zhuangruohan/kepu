@@ -2,10 +2,10 @@
   display: grid;
   height: 100vh;
   min-height: 0;
-  grid-template-rows: 76px minmax(0, 1fr) 88px;
-  gap: 12px;
+  grid-template-rows: 68px minmax(0, 1fr) 64px;
+  gap: 8px;
   overflow: hidden;
-  padding: 14px 18px;
+  padding: 10px 14px;
   background:
     linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
@@ -37,11 +37,11 @@
 
 .courseHeader {
   display: grid;
-  grid-template-columns: minmax(340px, 1fr) 300px 300px 190px;
-  gap: 12px;
+  grid-template-columns: minmax(260px, 1fr) minmax(180px, 240px) 230px 150px;
+  gap: 10px;
   align-items: center;
-  min-height: 76px;
-  padding: 10px 14px;
+  min-height: 68px;
+  padding: 8px 12px;
   border: 1px solid rgba(107, 209, 224, 0.22);
   border-radius: 16px;
   background:
@@ -64,7 +64,7 @@
 
 .courseHeader h1 {
   margin: 0;
-  font-size: clamp(22px, 1.55vw, 30px);
+  font-size: clamp(19px, 1.35vw, 26px);
   line-height: 1.12;
 }
 
@@ -74,8 +74,8 @@
 
 .currentChapter {
   display: grid;
-  gap: 6px;
-  padding: 10px 12px;
+  gap: 4px;
+  padding: 8px 10px;
   border-radius: 12px;
   border-left: 3px solid #e2b85c;
   background: rgba(255, 255, 255, 0.045);
@@ -138,7 +138,7 @@
 .modeToggle,
 .modeToggleActive {
   display: grid;
-  min-height: 52px;
+  min-height: 46px;
   align-content: center;
   gap: 4px;
   border: 1px solid rgba(107, 209, 224, 0.24);
@@ -1342,7 +1342,7 @@
 .keyDisasterCard {
   position: relative;
   overflow: hidden;
-  min-height: clamp(430px, 57vh, 590px);
+  min-height: clamp(390px, 52vh, 540px);
   padding: 22px;
   border-radius: 18px;
   background:
@@ -1363,12 +1363,39 @@
 
 .keyScene {
   display: block;
+  position: relative;
+  overflow: hidden;
   height: 180px;
   margin: -22px -22px 20px;
   background:
     radial-gradient(circle at 70% 20%, rgba(226, 184, 92, 0.2), transparent 24%),
     linear-gradient(145deg, #294455, #17231f);
   animation: keyScenePulse 2.1s ease-in-out infinite alternate;
+}
+
+.keySceneImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.96) contrast(1.06) brightness(0.88);
+}
+
+.keyScene::after {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: '';
+  background: linear-gradient(180deg, rgba(4, 16, 24, 0.02), rgba(4, 16, 24, 0.62));
+}
+
+.keySceneFallback {
+  display: grid;
+  height: 100%;
+  place-items: center;
+  color: #ffe6a4;
+  font-size: 28px;
+  font-weight: 900;
 }
 
 .riskTag {
@@ -1450,19 +1477,6 @@
   border: 1px solid rgba(226, 184, 92, 0.26);
   background: rgba(226, 184, 92, 0.08);
   color: #ffe6a4;
-}
-
-.demoTime,
-.timeBadge {
-  display: inline-flex;
-  width: fit-content;
-  align-items: center;
-  padding: 6px 10px;
-  border: 1px solid rgba(120, 217, 231, 0.28);
-  background: rgba(87, 204, 224, 0.1);
-  color: #aef3ff;
-  font-size: 12px;
-  font-weight: 900;
 }
 
 .demoFrame {
@@ -2274,8 +2288,8 @@
 .chantCard {
   display: grid;
   align-content: center;
-  gap: 12px;
-  padding: 28px;
+  gap: 10px;
+  padding: 20px;
   border: 1px solid rgba(226, 184, 92, 0.24);
   border-radius: 18px;
   background:
@@ -2288,7 +2302,7 @@
 .chantLine,
 .chantLineVisible {
   margin: 0;
-  font-size: 34px;
+  font-size: clamp(24px, 2.05vw, 34px);
   font-weight: 900;
   line-height: 1.18;
   transition: opacity 180ms ease, transform 180ms ease;
@@ -2648,6 +2662,18 @@
   font-weight: 900;
 }
 
+.quizProgressItem[data-status='right'] span,
+.quizProgressActive[data-status='right'] span {
+  background: rgba(85, 226, 139, 0.18);
+  color: #b9ffd2;
+}
+
+.quizProgressItem[data-status='wrong'] span,
+.quizProgressActive[data-status='wrong'] span {
+  background: rgba(255, 101, 84, 0.16);
+  color: #ffcbc4;
+}
+
 .quizProgressItem strong,
 .quizProgressActive strong {
   font-size: 12px;
@@ -2763,7 +2789,7 @@
 .summaryModule {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
-  gap: 18px;
+  gap: 12px;
   background:
     radial-gradient(circle at 50% 96%, rgba(255, 228, 154, 0.22), transparent 30%),
     linear-gradient(145deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)),
@@ -2780,9 +2806,9 @@
 
 .summaryStage {
   display: grid;
-  grid-template-columns: minmax(250px, 0.9fr) minmax(0, 1.22fr) minmax(240px, 0.78fr);
+  grid-template-columns: minmax(220px, 0.72fr) minmax(0, 1.2fr) minmax(210px, 0.68fr);
   grid-template-rows: minmax(0, 1fr) auto;
-  gap: 16px;
+  gap: 12px;
   min-height: 0;
 }
 
@@ -2790,9 +2816,9 @@
 .summaryPrinciples {
   display: grid;
   align-content: start;
-  gap: 12px;
+  gap: 9px;
   min-height: 0;
-  padding: 16px;
+  padding: 12px;
   border: 1px solid rgba(120, 217, 231, 0.18);
   border-radius: 18px;
   background: rgba(5, 18, 30, 0.58);
@@ -2841,21 +2867,21 @@
 }
 
 .summaryPrinciples span {
-  padding: 14px;
+  padding: 10px 12px;
   border: 1px solid rgba(85, 226, 139, 0.18);
   border-radius: 14px;
   background: rgba(85, 226, 139, 0.08);
   color: #caffd9;
-  font-size: 18px;
+  font-size: clamp(14px, 1vw, 17px);
   font-weight: 900;
 }
 
 .recapPanel {
   display: grid;
   grid-column: 1 / -1;
-  gap: 12px;
-  margin-top: 8px;
-  padding: 16px;
+  gap: 9px;
+  margin-top: 0;
+  padding: 12px;
   border: 1px solid rgba(120, 217, 231, 0.2);
   border-radius: 16px;
   background: rgba(4, 16, 24, 0.56);
@@ -2867,15 +2893,247 @@
 
 .recapPanel > div {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
 }
 
 .recapPanel span {
-  padding: 10px 12px;
+  padding: 8px 10px;
   border: 1px solid rgba(120, 217, 231, 0.16);
   border-radius: 12px;
   background: rgba(255, 255, 255, 0.045);
+  color: #d8e9e7;
+}
+
+.diagramButton {
+  width: 100%;
+  min-height: 44px;
+  margin-top: 16px;
+  border: 1px solid rgba(120, 217, 231, 0.34);
+  border-radius: 999px;
+  background: rgba(87, 204, 224, 0.12);
+  color: #aef3ff;
+  cursor: pointer;
+  font-weight: 900;
+}
+
+.diagramOverlay {
+  position: absolute;
+  inset: 10px;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  background: rgba(3, 12, 20, 0.62);
+  backdrop-filter: blur(10px);
+}
+
+.diagramPanel {
+  display: grid;
+  width: min(1280px, 90vw);
+  max-height: 85vh;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: 12px;
+  overflow: auto;
+  padding: 16px;
+  border: 1px solid rgba(120, 217, 231, 0.28);
+  border-radius: 18px;
+  background: rgba(5, 18, 30, 0.94);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+}
+
+.diagramHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.diagramHeader strong {
+  color: #ffe6a4;
+  font-size: 20px;
+}
+
+.diagramHeader button {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  color: #eaf8f5;
+  cursor: pointer;
+}
+
+.diagramPanel img {
+  width: 100%;
+  max-height: min(70vh, 720px);
+  object-fit: contain;
+  place-self: center;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.diagramPanel p {
+  margin: 0;
+  padding: 12px 14px;
+  border-left: 4px solid #e2b85c;
+  border-radius: 12px;
+  background: rgba(226, 184, 92, 0.08);
+  color: #fff0c8;
+}
+
+.diagramFallback {
+  display: grid;
+  min-height: 320px;
+  place-content: center;
+  gap: 12px;
+  border-radius: 14px;
+  background:
+    linear-gradient(115deg, transparent 0 55%, rgba(226, 184, 92, 0.4) 56% 60%, transparent 61%),
+    radial-gradient(circle at 25% 18%, rgba(87, 204, 224, 0.2), transparent 25%),
+    linear-gradient(135deg, #223f4f, #654d2d 58%, #253a2f);
+  text-align: center;
+}
+
+.diagramFallback strong {
+  color: #ffe6a4;
+  font-size: 32px;
+}
+
+.diagramFallback span {
+  color: #eaf8f5;
+}
+
+.safetyModule {
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 0.42fr);
+  grid-template-rows: auto auto auto minmax(0, 1fr) auto;
+}
+
+.safetyFlow {
+  grid-column: 1 / -1;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.safetyFlow article {
+  min-height: 108px;
+}
+
+.safetyFlow article::after {
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: -14px;
+  z-index: 2;
+  color: #78d9e7;
+  font-size: 22px;
+  content: '→';
+  transform: translateY(-50%);
+}
+
+.safetyFlow article:last-child::after {
+  display: none;
+}
+
+.warningWall {
+  grid-column: 1;
+  grid-row: 4;
+}
+
+.signalExplanation {
+  grid-column: 1;
+  grid-row: 5;
+  margin-top: 0;
+}
+
+.safetyVisualColumn {
+  grid-column: 2;
+  grid-row: 4 / 6;
+  grid-template-rows: minmax(0, 1fr);
+}
+
+.safetySignalScene {
+  display: none;
+}
+
+.extensionDetailCard {
+  grid-template-rows: minmax(150px, 42%) auto auto;
+}
+
+.extensionDetailImage {
+  width: calc(100% + 36px);
+  height: 100%;
+  min-height: 150px;
+  margin: -18px -18px 4px;
+  object-fit: cover;
+  border-bottom: 1px solid rgba(120, 217, 231, 0.16);
+  filter: saturate(0.95) contrast(1.04);
+}
+
+.quizModule {
+  grid-template-columns: minmax(280px, 0.42fr) minmax(0, 1fr);
+  align-items: stretch;
+}
+
+.quizMainPanel {
+  display: grid;
+  min-height: 0;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 14px;
+}
+
+.quizMainPanel .quizCard {
+  min-height: 0;
+  align-content: center;
+}
+
+.quizMainPanel .quizFeedbackPanel {
+  min-height: 0;
+}
+
+.quizSceneThumb {
+  min-height: 128px;
+}
+
+.summaryStage {
+  grid-template-columns: minmax(220px, 0.72fr) minmax(0, 1.2fr) minmax(210px, 0.68fr);
+}
+
+.summarySloganImage,
+.summarySloganFallback {
+  display: grid;
+  min-height: 0;
+  place-items: center;
+  overflow: hidden;
+  padding: 10px;
+  border: 1px solid rgba(120, 217, 231, 0.18);
+  border-radius: 18px;
+  background: rgba(5, 18, 30, 0.58);
+}
+
+.summarySloganImage {
+  margin: 0;
+}
+
+.summarySloganImage img {
+  width: 100%;
+  height: auto;
+  max-height: clamp(180px, 32vh, 300px);
+  object-fit: contain;
+}
+
+.summarySloganFallback {
+  align-content: center;
+  gap: 12px;
+  text-align: center;
+}
+
+.summarySloganFallback strong {
+  color: #ffe6a4;
+  font-size: 30px;
+}
+
+.summarySloganFallback span {
   color: #d8e9e7;
 }
 
@@ -2889,10 +3147,6 @@
 .teacherPanel h2 {
   margin: 0;
   font-size: 28px;
-}
-
-.timeBadge {
-  margin-top: 10px;
 }
 
 .teacherScript {
@@ -2957,10 +3211,10 @@
 .timelineButton,
 .timelineButtonActive {
   display: grid;
-  min-height: 76px;
-  gap: 6px;
+  min-height: 56px;
+  gap: 5px;
   align-content: center;
-  padding: 8px;
+  padding: 7px;
   border: 1px solid rgba(107, 209, 224, 0.18);
   border-radius: 12px;
   color: #d8e9e7;
@@ -2980,14 +3234,12 @@
 .timelineButton span,
 .timelineButtonActive span {
   display: grid;
-  width: 22px;
-  height: 22px;
+  width: 9px;
+  height: 9px;
   place-items: center;
   border-radius: 50%;
   background: rgba(120, 217, 231, 0.12);
   color: #78d9e7;
-  font-size: 11px;
-  font-weight: 900;
 }
 
 .timelineButton strong,
@@ -3067,15 +3319,15 @@
 
 @media (max-height: 820px) and (min-width: 1100px) {
   .courseShell {
-    grid-template-rows: 66px minmax(0, 1fr) 72px;
-    gap: 8px;
-    padding: 10px 14px;
+    grid-template-rows: 62px minmax(0, 1fr) 56px;
+    gap: 7px;
+    padding: 8px 12px;
   }
 
   .courseHeader {
-    min-height: 66px;
-    grid-template-columns: minmax(300px, 1fr) 250px 260px 168px;
-    padding: 8px 12px;
+    min-height: 62px;
+    grid-template-columns: minmax(260px, 1fr) minmax(180px, 230px) 210px 142px;
+    padding: 7px 10px;
   }
 
   .courseHeader h1 {
@@ -3144,7 +3396,7 @@
   }
 
   .keyScene {
-    height: 122px;
+    height: 138px;
     margin: -18px -18px 14px;
   }
 
@@ -3290,7 +3542,7 @@
   }
 
   .quizModule {
-    grid-template-columns: minmax(230px, 0.78fr) minmax(0, 1.08fr) minmax(240px, 0.82fr);
+    grid-template-columns: minmax(250px, 0.42fr) minmax(0, 1fr);
     gap: 12px;
   }
 
@@ -3321,7 +3573,7 @@
   }
 
   .recapPanel > div {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 

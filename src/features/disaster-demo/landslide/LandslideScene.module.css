@@ -641,12 +641,13 @@
 
 .escapeQuestion {
   position: absolute;
-  right: 34px;
-  bottom: 34px;
+  top: 28px;
+  right: auto;
+  left: 32px;
   display: grid;
-  width: min(390px, calc(100% - 68px));
-  gap: 12px;
-  padding: 16px;
+  width: min(360px, calc(46% - 40px));
+  gap: 10px;
+  padding: 14px;
   border: 1px solid rgba(229, 238, 215, 0.28);
   background: rgba(16, 22, 20, 0.72);
   color: #f6f2e8;
@@ -879,8 +880,10 @@
   }
 
   .escapeQuestion {
+    left: 18px;
     right: 18px;
-    bottom: 18px;
+    top: auto;
+    bottom: 92px;
     width: calc(100% - 36px);
   }
 
