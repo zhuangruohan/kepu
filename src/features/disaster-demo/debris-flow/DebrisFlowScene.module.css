@@ -1,0 +1,351 @@
+.scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 70% 18%, rgba(98, 203, 219, 0.16), transparent 24%),
+    linear-gradient(180deg, #243848 0%, #4d604f 45%, #2f2a1f 100%);
+}
+
+.mountains {
+  position: absolute;
+  inset: auto -12% 30%;
+  height: 58%;
+  clip-path: polygon(0 100%, 18% 22%, 32% 68%, 48% 8%, 66% 64%, 82% 26%, 100% 100%);
+  background: linear-gradient(135deg, #405a4f, #1f312d);
+}
+
+.valley {
+  position: absolute;
+  left: 26%;
+  bottom: 0;
+  width: 48%;
+  height: 78%;
+  clip-path: polygon(42% 0, 58% 0, 100% 100%, 0 100%);
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.08), transparent 32%, transparent 68%, rgba(255, 255, 255, 0.08)),
+    linear-gradient(180deg, #536049, #3c2d1d);
+}
+
+.highGroundLeft,
+.highGroundRight,
+.waterLevelAlert,
+.lowDangerZone {
+  position: absolute;
+  padding: 10px 12px;
+  border: 1px solid rgba(85, 226, 139, 0.46);
+  background: rgba(18, 54, 36, 0.62);
+  color: #bdfbd1;
+  font-weight: 900;
+  opacity: 0;
+}
+
+.highGroundLeft {
+  left: 8%;
+  top: 29%;
+}
+
+.highGroundRight {
+  right: 8%;
+  top: 29%;
+}
+
+.rain {
+  position: absolute;
+  inset: -20% 0 40%;
+  opacity: 0;
+}
+
+.scene[data-stage='upstream_rain'] .rain,
+.scene[data-stage='valley_collect'] .rain {
+  opacity: 0.8;
+}
+
+.rain span {
+  position: absolute;
+  top: 0;
+  width: 2px;
+  height: 80px;
+  background: rgba(211, 241, 248, 0.84);
+  transform: rotate(13deg);
+  animation: rainFall 620ms linear infinite;
+}
+
+.rain:not(.playing) span {
+  animation-play-state: paused;
+}
+
+.waterPath {
+  position: absolute;
+  left: 38%;
+  bottom: 10%;
+  width: 24%;
+  height: calc(20% + var(--flow) * 42%);
+  background: linear-gradient(180deg, rgba(83, 183, 205, 0.7), rgba(95, 70, 39, 0.8));
+  clip-path: polygon(28% 0, 72% 0, 100% 100%, 0 100%);
+  opacity: 0;
+}
+
+.scene[data-stage='valley_collect'] .waterPath,
+.scene[data-stage='sediment_move'] .waterPath,
+.scene[data-stage='muddy_water'] .waterPath,
+.scene[data-stage='rumble_warning'] .waterPath,
+.scene[data-stage='debris_surge'] .waterPath,
+.scene[data-stage='wrong_escape'] .waterPath,
+.scene[data-stage='high_escape'] .waterPath {
+  opacity: 1;
+}
+
+.waterLevelAlert {
+  left: 40%;
+  top: 41%;
+  border-color: rgba(91, 188, 255, 0.5);
+  background: rgba(20, 52, 70, 0.68);
+  color: #bdefff;
+}
+
+.scene[data-stage='muddy_water'] .waterLevelAlert,
+.scene[data-stage='rumble_warning'] .waterLevelAlert,
+.scene[data-stage='debris_surge'] .waterLevelAlert {
+  opacity: 1;
+}
+
+.debrisSurge {
+  position: absolute;
+  left: calc(28% - var(--flow) * 5%);
+  bottom: calc(5% - var(--flow) * 2%);
+  width: calc(38% + var(--flow) * 22%);
+  height: calc(18% + var(--flow) * 18%);
+  background:
+    repeating-linear-gradient(18deg, rgba(255, 229, 166, 0.18) 0 8px, transparent 8px 20px),
+    linear-gradient(180deg, #7a5430, #3d291c);
+  clip-path: polygon(8% 0, 82% 10%, 100% 100%, 0 100%);
+  opacity: 0;
+  filter: drop-shadow(0 20px 22px rgba(0, 0, 0, 0.35));
+}
+
+.scene[data-stage='sediment_move'] .debrisSurge,
+.scene[data-stage='muddy_water'] .debrisSurge,
+.scene[data-stage='rumble_warning'] .debrisSurge,
+.scene[data-stage='debris_surge'] .debrisSurge,
+.scene[data-stage='wrong_escape'] .debrisSurge,
+.scene[data-stage='high_escape'] .debrisSurge {
+  opacity: 1;
+}
+
+.debrisSurge span {
+  position: absolute;
+  width: 18px;
+  height: 14px;
+  border-radius: 40%;
+  background: #2f2922;
+  animation: stoneRoll 900ms ease-in-out infinite alternate;
+}
+
+.debrisSurge span:nth-child(3n) {
+  background: #6b6257;
+}
+
+.debrisSurge span:nth-child(1) { left: 8%; bottom: 20%; }
+.debrisSurge span:nth-child(2) { left: 17%; bottom: 44%; }
+.debrisSurge span:nth-child(3) { left: 28%; bottom: 28%; }
+.debrisSurge span:nth-child(4) { left: 38%; bottom: 56%; }
+.debrisSurge span:nth-child(5) { left: 48%; bottom: 28%; }
+.debrisSurge span:nth-child(6) { left: 58%; bottom: 46%; }
+.debrisSurge span:nth-child(7) { left: 68%; bottom: 30%; }
+.debrisSurge span:nth-child(8) { left: 78%; bottom: 52%; }
+.debrisSurge span:nth-child(9) { left: 88%; bottom: 22%; }
+
+.bridge,
+.wrongRoutes,
+.sound {
+  position: absolute;
+  padding: 10px 12px;
+  border: 1px solid rgba(226, 189, 90, 0.45);
+  background: rgba(12, 18, 19, 0.68);
+  color: #ffe6a4;
+  opacity: 0;
+}
+
+.lowDangerZone {
+  display: grid;
+  left: 30%;
+  bottom: 8%;
+  width: 40%;
+  height: 23%;
+  place-items: center;
+  border-color: #ff6654;
+  background:
+    repeating-linear-gradient(45deg, rgba(255, 102, 84, 0.16) 0 14px, rgba(255, 102, 84, 0.06) 14px 28px),
+    rgba(117, 29, 24, 0.24);
+  color: #ffd7d0;
+}
+
+.bridge {
+  right: 14%;
+  bottom: 26%;
+}
+
+.wrongRoutes {
+  right: 5%;
+  bottom: 12%;
+  border-color: #ff6654;
+  color: #ffd7d0;
+}
+
+.sound {
+  top: 24%;
+  right: 14%;
+}
+
+.scene[data-stage='rumble_warning'] .sound,
+.scene[data-stage='wrong_escape'] .bridge,
+.scene[data-stage='wrong_escape'] .wrongRoutes,
+.scene[data-stage='wrong_escape'] .lowDangerZone,
+.scene[data-stage='high_escape'] .lowDangerZone {
+  opacity: 1;
+}
+
+.safeRoutes {
+  position: absolute;
+  right: 8%;
+  bottom: 24%;
+  width: 48%;
+  height: 40%;
+  opacity: 0;
+}
+
+.safeRoutes path {
+  fill: none;
+  stroke: #54e28a;
+  stroke-width: 7;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 9px rgba(84, 226, 138, 0.78));
+}
+
+.scene[data-stage='high_escape'] .safeRoutes {
+  opacity: 1;
+}
+
+.scene[data-stage='high_escape'] .highGroundLeft,
+.scene[data-stage='high_escape'] .highGroundRight {
+  opacity: 1;
+}
+
+.structureLabels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.structureLabels span {
+  position: absolute;
+  padding: 6px 9px;
+  border: 1px solid rgba(226, 238, 238, 0.2);
+  border-radius: 999px;
+  background: rgba(12, 18, 19, 0.6);
+  color: #eaf8f5;
+  font-size: 12px;
+  font-weight: 900;
+  backdrop-filter: blur(8px);
+}
+
+.labelRain {
+  left: 35%;
+  top: 15%;
+  color: #bdefff !important;
+}
+
+.labelCollect {
+  left: 42%;
+  top: 30%;
+  color: #bdefff !important;
+}
+
+.labelSediment {
+  left: 50%;
+  top: 50%;
+  color: #ffe0ad !important;
+}
+
+.labelMuddy {
+  left: 45%;
+  bottom: 34%;
+  color: #d9b67b !important;
+}
+
+.labelChannel {
+  left: 43%;
+  bottom: 22%;
+  color: #ffd7d0 !important;
+}
+
+.labelBridge {
+  right: 14%;
+  bottom: 20%;
+  color: #ffd7d0 !important;
+}
+
+.labelHigh {
+  right: 25%;
+  top: 24%;
+  color: #bdfbd1 !important;
+  opacity: 0;
+}
+
+.scene[data-stage='high_escape'] .labelHigh {
+  opacity: 1;
+}
+
+.copy {
+  position: absolute;
+  left: 36px;
+  bottom: 34px;
+  color: #fff5e8;
+}
+
+.copy p {
+  margin: 0 0 8px;
+  color: #79d8e5;
+  font-weight: 800;
+}
+
+.copy h1 {
+  margin: 0;
+  font-size: 48px;
+}
+
+.copy span {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.42);
+}
+
+@keyframes rainFall {
+  to {
+    transform: translateY(110vh) rotate(13deg);
+  }
+}
+
+@keyframes stoneRoll {
+  to {
+    transform: translate(24px, 12px) rotate(35deg);
+  }
+}
+
+.caseCta {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  z-index: 14;
+  min-height: 46px;
+  padding: 0 18px;
+  border: 1px solid rgba(85, 226, 139, 0.48);
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(85, 226, 139, 0.92), rgba(87, 204, 224, 0.72));
+  color: #06111d;
+  cursor: pointer;
+  font-weight: 900;
+  box-shadow: 0 0 28px rgba(85, 226, 139, 0.28);
+}

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 640" role="img" aria-label="Landslide terrain placeholder">
+  <defs>
+    <linearGradient id="soil" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#8a6a3f"/>
+      <stop offset="0.58" stop-color="#5d4229"/>
+      <stop offset="1" stop-color="#332319"/>
+    </linearGradient>
+    <linearGradient id="grass" x1="0" x2="1">
+      <stop offset="0" stop-color="#365f38"/>
+      <stop offset="1" stop-color="#6c8a45"/>
+    </linearGradient>
+  </defs>
+  <path d="M0 430 C210 380 316 260 500 230 C725 194 888 320 1200 382 L1200 640 L0 640Z" fill="url(#soil)"/>
+  <path d="M0 408 C210 356 320 240 500 212 C736 178 892 298 1200 356 L1200 400 C880 340 720 220 505 252 C320 278 220 398 0 454Z" fill="url(#grass)"/>
+  <path d="M170 468 C380 420 640 420 960 510" fill="none" stroke="#d1b06b" stroke-width="8" stroke-dasharray="26 18" opacity=".42"/>
+</svg>

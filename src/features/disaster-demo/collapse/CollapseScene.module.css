@@ -1,0 +1,373 @@
+.scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 70% 16%, rgba(226, 189, 90, 0.16), transparent 22%),
+    linear-gradient(180deg, #263846 0%, #53605a 46%, #242a24 100%);
+}
+
+.sky {
+  position: absolute;
+  inset: 0 0 48%;
+  background:
+    radial-gradient(circle at 30% 16%, rgba(214, 228, 232, 0.2), transparent 20%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), transparent);
+}
+
+.rainVeil,
+.mountainBack {
+  position: absolute;
+  pointer-events: none;
+}
+
+.rainVeil {
+  inset: -10% 0 36%;
+  background: repeating-linear-gradient(105deg, transparent 0 22px, rgba(220, 239, 244, 0.26) 23px 25px, transparent 26px 46px);
+  opacity: 0.38;
+  animation: rainSweep 820ms linear infinite;
+}
+
+.mountainBack {
+  inset: auto -12% 18%;
+  height: 52%;
+  clip-path: polygon(0 100%, 20% 42%, 34% 66%, 54% 22%, 72% 62%, 88% 34%, 100% 100%);
+  background: linear-gradient(135deg, rgba(39, 63, 61, 0.55), rgba(16, 28, 30, 0.82));
+}
+
+.cliff {
+  position: absolute;
+  left: 7%;
+  bottom: 13%;
+  width: 48%;
+  height: 74%;
+  clip-path: polygon(0 0, 82% 6%, 100% 100%, 0 100%);
+  background: linear-gradient(125deg, #756b5a, #332f2b);
+  box-shadow: inset -40px 0 80px rgba(0, 0, 0, 0.34);
+}
+
+.rockFace {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(104deg, rgba(255, 255, 255, 0.12) 0 3px, transparent 3px 28px);
+}
+
+.crack {
+  position: absolute;
+  top: 14%;
+  right: 28%;
+  width: 8px;
+  background: #1d1713;
+  transform: rotate(13deg);
+  opacity: 0;
+  transition: height 180ms ease;
+}
+
+.scene[data-stage='rock_crack'] .crack,
+.scene[data-stage='small_rockfall'] .crack,
+.scene[data-stage='rock_sound'] .crack,
+.scene[data-stage='collapse_fall'] .crack,
+.scene[data-stage='collapse_danger'] .crack,
+.scene[data-stage='collapse_escape'] .crack {
+  opacity: 1;
+}
+
+.road {
+  position: absolute;
+  right: 0;
+  bottom: 8%;
+  width: 68%;
+  height: 14%;
+  background:
+    repeating-linear-gradient(96deg, transparent 0 56px, rgba(244, 211, 118, 0.42) 57px 68px, transparent 69px 132px),
+    linear-gradient(180deg, #69645a, #333530);
+  clip-path: polygon(0 20%, 100% 0, 100% 100%, 8% 86%);
+}
+
+.village {
+  position: absolute;
+  left: 8%;
+  bottom: 10%;
+  display: flex;
+  gap: 8px;
+  opacity: 0.82;
+}
+
+.village span {
+  display: block;
+  width: 46px;
+  height: 34px;
+  background:
+    linear-gradient(135deg, transparent 0 48%, #8b4a34 49% 62%, transparent 63%),
+    linear-gradient(180deg, #dec59a 0 42%, #8e795d 43%);
+  border: 1px solid rgba(26, 22, 18, 0.5);
+}
+
+.warningSign {
+  position: absolute;
+  right: 9%;
+  bottom: 23%;
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 214, 97, 0.55);
+  background: rgba(18, 19, 16, 0.68);
+  color: #ffe28a;
+  font-weight: 900;
+}
+
+.rockSmall,
+.rockMass {
+  position: absolute;
+  border-radius: 42% 58% 45% 55%;
+  background: linear-gradient(135deg, #8b806d, #3b342d);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.32);
+  opacity: 0;
+}
+
+.rockSmall {
+  left: 48%;
+  bottom: 40%;
+  width: 34px;
+  height: 28px;
+}
+
+.scene[data-stage='small_rockfall'] .rockSmall,
+.scene[data-stage='rock_sound'] .rockSmall {
+  opacity: 1;
+  animation: smallRock 900ms ease-in-out infinite alternate;
+}
+
+.rockMass {
+  left: calc(42% + var(--fall) * 18%);
+  bottom: calc(48% - var(--fall) * 32%);
+  width: 148px;
+  height: 108px;
+  transform: rotate(calc(var(--fall) * 80deg));
+}
+
+.fallPath {
+  position: absolute;
+  left: 38%;
+  bottom: 14%;
+  width: 42%;
+  height: 66%;
+  opacity: 0;
+}
+
+.fallPath path {
+  fill: none;
+  stroke: rgba(255, 212, 94, 0.72);
+  stroke-width: 2.5;
+  stroke-dasharray: 8 10;
+  filter: drop-shadow(0 0 8px rgba(255, 212, 94, 0.52));
+}
+
+.scene[data-stage='small_rockfall'] .fallPath,
+.scene[data-stage='rock_sound'] .fallPath,
+.scene[data-stage='collapse_fall'] .fallPath,
+.scene[data-stage='collapse_danger'] .fallPath {
+  opacity: 1;
+}
+
+.scene[data-stage='collapse_fall'] .rockMass,
+.scene[data-stage='collapse_danger'] .rockMass,
+.scene[data-stage='collapse_escape'] .rockMass {
+  opacity: 1;
+}
+
+.dust {
+  position: absolute;
+  right: 22%;
+  bottom: 15%;
+  width: 38%;
+  height: 22%;
+  background: radial-gradient(circle, rgba(204, 170, 110, 0.36), transparent 70%);
+  filter: blur(14px);
+  opacity: 0;
+}
+
+.scene[data-stage='collapse_fall'] .dust {
+  opacity: 1;
+}
+
+.dangerZone {
+  position: absolute;
+  right: 7%;
+  bottom: 12%;
+  display: grid;
+  width: 44%;
+  height: 22%;
+  place-items: center;
+  border: 2px solid #ff6554;
+  background: rgba(201, 55, 43, 0.24);
+  color: #ffd6cf;
+  font-weight: 900;
+  opacity: 0;
+}
+
+.scene[data-stage='collapse_danger'] .dangerZone,
+.scene[data-stage='collapse_escape'] .dangerZone {
+  opacity: 1;
+}
+
+.safeArrow {
+  position: absolute;
+  right: 15%;
+  bottom: 28%;
+  width: 40%;
+  height: 30%;
+  opacity: 0;
+}
+
+.safeArrow path {
+  fill: none;
+  stroke: #55e28b;
+  stroke-width: 7;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 8px rgba(85, 226, 139, 0.7));
+}
+
+.scene[data-stage='collapse_escape'] .safeArrow {
+  opacity: 1;
+}
+
+.safeLabel {
+  position: absolute;
+  right: 30%;
+  bottom: 43%;
+  padding: 10px 14px;
+  border: 1px solid rgba(85, 226, 139, 0.5);
+  background: rgba(17, 54, 35, 0.72);
+  color: #bdfbd1;
+  font-weight: 900;
+  opacity: 0;
+}
+
+.scene[data-stage='collapse_escape'] .safeLabel {
+  opacity: 1;
+}
+
+.soundWave {
+  position: absolute;
+  top: 24%;
+  right: 14%;
+  padding: 10px 12px;
+  border: 1px solid rgba(226, 189, 90, 0.45);
+  background: rgba(19, 23, 24, 0.62);
+  color: #ffe6a4;
+  opacity: 0;
+}
+
+.scene[data-stage='rock_sound'] .soundWave {
+  opacity: 1;
+}
+
+.structureLabels {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.structureLabels span {
+  position: absolute;
+  padding: 6px 9px;
+  border: 1px solid rgba(226, 238, 238, 0.2);
+  border-radius: 999px;
+  background: rgba(12, 18, 19, 0.58);
+  color: #eaf8f5;
+  font-size: 12px;
+  font-weight: 900;
+  backdrop-filter: blur(8px);
+}
+
+.labelCliff {
+  left: 18%;
+  top: 18%;
+  color: #e2e7e7 !important;
+}
+
+.labelCrack {
+  left: 42%;
+  top: 31%;
+  color: #ffe48a !important;
+}
+
+.labelFallPath {
+  left: 55%;
+  top: 43%;
+  color: #ffe48a !important;
+}
+
+.labelRoad {
+  right: 16%;
+  bottom: 16%;
+}
+
+.labelDeposit {
+  right: 26%;
+  bottom: 26%;
+  color: #ffd7d0 !important;
+}
+
+.labelSafe {
+  right: 37%;
+  bottom: 49%;
+  color: #bdfbd1 !important;
+  opacity: 0;
+}
+
+.scene[data-stage='collapse_escape'] .labelSafe {
+  opacity: 1;
+}
+
+.copy {
+  position: absolute;
+  left: 36px;
+  bottom: 34px;
+  color: #fff5e8;
+}
+
+.copy p {
+  margin: 0 0 8px;
+  color: #79d8e5;
+  font-weight: 800;
+}
+
+.copy h1 {
+  margin: 0;
+  font-size: 48px;
+}
+
+.copy span {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.42);
+}
+
+@keyframes smallRock {
+  to {
+    transform: translate(42px, 44px) rotate(55deg);
+  }
+}
+
+@keyframes rainSweep {
+  to {
+    background-position: 0 46px;
+  }
+}
+
+.caseCta {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  z-index: 14;
+  min-height: 46px;
+  padding: 0 18px;
+  border: 1px solid rgba(85, 226, 139, 0.48);
+  border-radius: 999px;
+  background: linear-gradient(135deg, rgba(85, 226, 139, 0.92), rgba(87, 204, 224, 0.72));
+  color: #06111d;
+  cursor: pointer;
+  font-weight: 900;
+  box-shadow: 0 0 28px rgba(85, 226, 139, 0.28);
+}

@@ -43,18 +43,34 @@
 
 ## Current Phase
 
-Phase 0 - Project Initialization
+V2 - 地质灾害基础科普与防灾避险互动课程网页迭代
 
 当前阶段目标：
 
-- 初始化 React + TypeScript + Vite 工程。
-- 建立稳定、可维护的基础目录。
-- 为 Presentation Core 和灾害 Demo 开发准备工程底座。
-- 不开发首页、滑坡 Demo、崩塌 Demo、泥石流 Demo。
+- 从“题库型互动”调整为“课程主线 + 动态演示 + 少量关键互动”。
+- 保留并嵌入 `LandslideDemo`，新增崩塌、泥石流阶段化动态演示。
+- 强化首页、形成原因实验室、三大灾害专题、科学避险流程和总结口诀。
+- 页面优先满足课堂讲解、投屏录屏和应急科普数字展厅视觉效果。
+
+当前课程主线：
+
+1. 课程封面：暴雨山区快速导入
+2. 什么是地质灾害
+3. 六类地质灾害总览
+4. 形成原因实验室
+5. 四川重点三类灾害
+6. 滑坡完整演示
+7. 崩塌完整演示
+8. 泥石流完整演示
+9. 科学避险流程 + 前兆分类墙
+10. 另外三类拓展 + 总结口诀
 
 ---
 
 ## Important Documents
+
+docs:
+本轮 v2 现状盘点、课程结构、迭代任务、组件设计和验收标准。
 
 00_Project_Control:
 项目背景、范围、风险、决策。
@@ -101,11 +117,11 @@ npm run preview
 
 ---
 
-## Phase 0 Notes
+## Development Notes
 
 - 技术栈遵循 `03_Technical/Tech_Stack.md`。
 - 当前基础样式方案为全局基础样式 + 后续按模块使用 CSS Modules。
 - `features/` 负责业务模块。
 - `components/` 只放通用 UI。
 - 暂不引入 Three.js、大型状态管理库或复杂动画系统。
-- `Task09`、`Task10` 文件当前缺失，已记录为后续风险，不阻塞 Phase 0。
+- `Task09`、`Task10` 文件当前缺失，已记录为后续风险，不阻塞 Phase 1。

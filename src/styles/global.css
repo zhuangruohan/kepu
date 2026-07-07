@@ -26,35 +26,3 @@ textarea,
 select {
   font: inherit;
 }
-
-.app-shell {
-  display: grid;
-  min-height: 100vh;
-  place-items: center;
-  padding: 24px;
-}
-
-.phase-panel {
-  width: min(100%, 640px);
-}
-
-.phase-kicker {
-  margin: 0 0 12px;
-  color: #8fd5c2;
-  font-size: 14px;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.phase-panel h1 {
-  margin: 0;
-  font-size: 40px;
-  line-height: 1.1;
-}
-
-.phase-panel p {
-  margin: 16px 0 0;
-  color: #cbd8d5;
-  font-size: 18px;
-  line-height: 1.6;
-}
