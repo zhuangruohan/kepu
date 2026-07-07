@@ -1,4 +1,5 @@
 .courseShell {
+  --course-nav-height: 44px;
   display: grid;
   height: 100dvh;
   min-height: 0;
@@ -130,6 +131,7 @@
   grid-template-columns: minmax(0, 1fr);
   gap: 12px;
   overflow: hidden;
+  padding-bottom: 2px;
 }
 
 .courseShell[data-mode='teacher'] .courseMain {
@@ -528,8 +530,8 @@
 
 .definitionModule {
   display: grid;
-  grid-template-columns: minmax(0, 52%) minmax(0, 1fr);
-  gap: 22px;
+  grid-template-columns: minmax(0, 45%) minmax(0, 55%);
+  gap: 18px;
   padding: clamp(14px, 1.9vw, 32px);
 }
 
@@ -610,6 +612,16 @@
   color: #aef3ff !important;
 }
 
+.definitionCopy {
+  display: grid;
+  min-height: 0;
+  align-content: start;
+  overflow-y: auto;
+  padding-right: 6px;
+  padding-bottom: clamp(18px, 3vh, 34px);
+  scrollbar-gutter: stable;
+}
+
 .definitionCopy h1,
 .overviewModule h1,
 .causeLabModule h1,
@@ -623,18 +635,18 @@
 }
 
 .definitionCopy blockquote {
-  margin: clamp(12px, 1.5vw, 22px) 0;
-  padding: clamp(14px, 1.4vw, 22px);
+  margin: clamp(10px, 1.2vw, 18px) 0;
+  padding: clamp(12px, 1.2vw, 18px);
   border-left: 4px solid #e2b85c;
-  background: rgba(226, 184, 92, 0.1);
+  background: rgba(226, 184, 92, 0.13);
   color: #fff1c7;
-  font-size: clamp(15px, 1.25vw, 20px);
-  line-height: 1.7;
+  font-size: clamp(14px, 1.1vw, 18px);
+  line-height: 1.55;
 }
 
 .definitionCopy p {
   color: #d5e8e5;
-  line-height: 1.7;
+  line-height: 1.55;
 }
 
 .threeLayerExplain,
@@ -662,20 +674,20 @@
 }
 
 .threeLayerExplain span {
-  padding: 16px;
+  padding: 12px;
   color: #eaf8f5;
 }
 
 .definitionFlow article {
   display: grid;
-  gap: 12px;
-  padding: 22px;
+  gap: 8px;
+  padding: 14px;
   border-radius: 14px;
 }
 
 .definitionFlow b {
   color: #e2b85c;
-  font-size: 22px;
+  font-size: clamp(17px, 1.25vw, 21px);
 }
 
 .flowArrow {
@@ -698,7 +710,7 @@
 
 .natureResult,
 .hazardResult {
-  min-height: 110px;
+  min-height: 82px;
   border-radius: 14px;
 }
 
@@ -2832,6 +2844,13 @@
   opacity: 0.42;
 }
 
+.summaryModule button:disabled {
+  cursor: default;
+  opacity: 0.72;
+  background: rgba(120, 217, 231, 0.18);
+  color: #c8d7d3;
+}
+
 .summaryModule {
   display: grid;
   grid-template-rows: auto minmax(0, 1fr);
@@ -3203,6 +3222,39 @@
   overflow: auto;
 }
 
+.overviewModule,
+.keyDisastersModule,
+.safetyModule,
+.extensionOnlyModule,
+.quizModule,
+.summaryModule {
+  overflow-y: auto;
+  padding-bottom: clamp(18px, 3vh, 38px);
+  scrollbar-gutter: stable;
+}
+
+.warningWall,
+.signalExplanation,
+.scenarioWall,
+.quizHero,
+.quizMainPanel,
+.summaryStage,
+.extensionDetailGrid {
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}
+
+.caseMediaPanel,
+.caseContent {
+  scrollbar-gutter: stable;
+}
+
+.demoInfoDrawer[open] > div {
+  max-height: clamp(120px, 22vh, 220px);
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+}
+
 .teacherPanel {
   overflow: auto;
   max-height: 100%;
@@ -3271,7 +3323,8 @@
   gap: 4px;
   align-items: center;
   overflow: visible;
-  min-height: 44px;
+  min-height: 40px;
+  max-height: 52px;
   padding: 0;
   border-radius: 14px;
 }
@@ -3280,7 +3333,7 @@
 .timelineButtonActive {
   display: grid;
   position: relative;
-  min-height: 42px;
+  min-height: 38px;
   place-items: center;
   padding: 5px 3px;
   border: 1px solid rgba(107, 209, 224, 0.18);
@@ -3302,8 +3355,8 @@
 .timelineButton span,
 .timelineButtonActive span {
   display: grid;
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   place-items: center;
   border-radius: 50%;
   background: rgba(120, 217, 231, 0.12);
@@ -3311,7 +3364,7 @@
 }
 
 .timelineButtonActive span {
-  width: 18px;
+  width: 16px;
   background: linear-gradient(90deg, #57cce0, #e2b85c);
   box-shadow: 0 0 16px rgba(87, 204, 224, 0.42);
 }
@@ -3472,6 +3525,39 @@
   .definitionModule,
   .causeLabModule {
     padding: 14px;
+  }
+
+  .definitionModule {
+    grid-template-columns: minmax(0, 45%) minmax(0, 55%);
+    gap: 12px;
+  }
+
+  .definitionCopy {
+    padding-bottom: 24px;
+  }
+
+  .definitionCopy blockquote {
+    margin: 8px 0;
+    padding: 10px 12px;
+    line-height: 1.42;
+  }
+
+  .definitionCopy p {
+    line-height: 1.42;
+  }
+
+  .threeLayerExplain {
+    gap: 8px;
+  }
+
+  .threeLayerExplain span,
+  .definitionFlow article {
+    padding: 10px;
+  }
+
+  .natureResult,
+  .hazardResult {
+    min-height: 68px;
   }
 
   .definitionCopy h1,
@@ -3676,7 +3762,7 @@
 
   .timelineButton,
   .timelineButtonActive {
-    min-height: 38px;
+    min-height: 34px;
     padding: 4px 2px;
   }
 

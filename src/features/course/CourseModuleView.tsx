@@ -968,9 +968,10 @@ function CourseSummary({ module }: Pick<CourseModuleViewProps, 'module'>) {
           ))}
           <button
             type="button"
+            disabled={visibleCount === summaryChant.length}
             onClick={() => setVisibleCount((count) => Math.min(count + 1, summaryChant.length))}
           >
-            逐句展示口诀
+            {visibleCount === summaryChant.length ? '口诀已全部展示' : '逐句展示口诀'}
           </button>
         </div>
         <aside className={styles.summaryPrinciples}>

@@ -359,7 +359,7 @@
 .caseCta {
   position: absolute;
   right: 24px;
-  bottom: 24px;
+  top: 24px;
   z-index: 14;
   min-height: 46px;
   padding: 0 18px;
@@ -370,4 +370,42 @@
   cursor: pointer;
   font-weight: 900;
   box-shadow: 0 0 28px rgba(85, 226, 139, 0.28);
+}
+
+@media (max-height: 820px) and (min-width: 901px) {
+  .copy {
+    left: 24px;
+    bottom: 24px;
+    max-width: 46%;
+  }
+
+  .copy h1 {
+    font-size: 38px;
+  }
+
+  .copy span {
+    margin-top: 8px;
+    padding: 7px 10px;
+  }
+
+  .structureLabels span {
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+
+  .labelDeposit {
+    right: 34%;
+    bottom: 30%;
+  }
+
+  .labelRoad {
+    right: 10%;
+    bottom: 12%;
+  }
+
+  .caseCta {
+    top: 18px;
+    right: 18px;
+    min-height: 40px;
+  }
 }

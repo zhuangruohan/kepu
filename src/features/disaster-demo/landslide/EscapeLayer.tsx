@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { PresentationStage } from '../../presentation/presentationTypes';
 import styles from './LandslideScene.module.css';
 
@@ -8,6 +9,8 @@ interface EscapeLayerProps {
 
 export function EscapeLayer({ stage, progress }: EscapeLayerProps) {
   const active = stage.scene.stageKey === 'escape';
+  const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
+  const selectedOption = stage.interaction.options?.find((option) => option.id === selectedOptionId);
 
   return (
     <div className={`${styles.escapeLayer} ${active ? styles.escapeLayerVisible : ''}`}>
@@ -35,14 +38,21 @@ export function EscapeLayer({ stage, progress }: EscapeLayerProps) {
         <strong>{stage.interaction.prompt ?? '你应该往哪里跑？'}</strong>
         <div>
           {stage.interaction.options?.map((option) => (
-            <span
-              className={option.isCorrect ? styles.correctChoice : styles.wrongChoice}
+            <button
+              className={selectedOptionId === option.id ? styles.choiceSelected : styles.choiceButton}
               key={option.id}
+              type="button"
+              onClick={() => setSelectedOptionId(option.id)}
             >
               {option.label}
-            </span>
+            </button>
           ))}
         </div>
+        {selectedOption ? (
+          <small className={selectedOption.isCorrect ? styles.choiceFeedbackRight : styles.choiceFeedbackWrong}>
+            {selectedOption.feedback}
+          </small>
+        ) : null}
       </div>
     </div>
   );
