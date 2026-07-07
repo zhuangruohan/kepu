@@ -18,7 +18,9 @@ export function CourseTimeline({ modules, currentModuleId, onSelect }: CourseTim
             className={isActive ? styles.timelineButtonActive : styles.timelineButton}
             key={module.id}
             type="button"
+            aria-label={module.title}
             aria-current={isActive ? 'step' : undefined}
+            title={module.title}
             onClick={() => onSelect(module.id)}
           >
             <span aria-hidden="true" />

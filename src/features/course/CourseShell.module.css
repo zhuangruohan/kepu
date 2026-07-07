@@ -1,11 +1,11 @@
 .courseShell {
   display: grid;
-  height: 100vh;
+  height: 100dvh;
   min-height: 0;
-  grid-template-rows: 68px minmax(0, 1fr) 64px;
-  gap: 8px;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  gap: clamp(5px, 0.7vh, 8px);
   overflow: hidden;
-  padding: 10px 14px;
+  padding: clamp(8px, 0.9vw, 14px);
   background:
     linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
@@ -37,11 +37,11 @@
 
 .courseHeader {
   display: grid;
-  grid-template-columns: minmax(260px, 1fr) minmax(180px, 240px) 230px 150px;
-  gap: 10px;
+  grid-template-columns: minmax(240px, 1fr) minmax(150px, 220px) minmax(170px, 220px) 136px;
+  gap: 8px;
   align-items: center;
-  min-height: 68px;
-  padding: 8px 12px;
+  min-height: 56px;
+  padding: 6px 10px;
   border: 1px solid rgba(107, 209, 224, 0.22);
   border-radius: 16px;
   background:
@@ -64,7 +64,7 @@
 
 .courseHeader h1 {
   margin: 0;
-  font-size: clamp(19px, 1.35vw, 26px);
+  font-size: clamp(17px, 1.25vw, 24px);
   line-height: 1.12;
 }
 
@@ -75,7 +75,7 @@
 .currentChapter {
   display: grid;
   gap: 4px;
-  padding: 8px 10px;
+  padding: 6px 9px;
   border-radius: 12px;
   border-left: 3px solid #e2b85c;
   background: rgba(255, 255, 255, 0.045);
@@ -89,14 +89,14 @@
 
 .currentChapter strong {
   overflow: hidden;
-  font-size: 17px;
+  font-size: clamp(14px, 1vw, 16px);
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .progressWrap {
   display: grid;
-  gap: 10px;
+  gap: 7px;
 }
 
 .progressLabel {
@@ -114,7 +114,7 @@
 .progressDot,
 .progressDotActive {
   display: block;
-  height: 8px;
+  height: 6px;
   border-radius: 999px;
   background: rgba(120, 217, 231, 0.18);
 }
@@ -129,6 +129,7 @@
   min-height: 0;
   grid-template-columns: minmax(0, 1fr);
   gap: 12px;
+  overflow: hidden;
 }
 
 .courseShell[data-mode='teacher'] .courseMain {
@@ -138,7 +139,7 @@
 .modeToggle,
 .modeToggleActive {
   display: grid;
-  min-height: 46px;
+  min-height: 42px;
   align-content: center;
   gap: 4px;
   border: 1px solid rgba(107, 209, 224, 0.24);
@@ -529,7 +530,7 @@
   display: grid;
   grid-template-columns: minmax(0, 52%) minmax(0, 1fr);
   gap: 22px;
-  padding: 34px;
+  padding: clamp(14px, 1.9vw, 32px);
 }
 
 .definitionScene {
@@ -617,17 +618,17 @@
 .safetyModule h1,
 .extensionModule h1 {
   margin: 0;
-  font-size: 44px;
+  font-size: clamp(30px, 2.7vw, 44px);
   line-height: 1.08;
 }
 
 .definitionCopy blockquote {
-  margin: 22px 0;
-  padding: 22px;
+  margin: clamp(12px, 1.5vw, 22px) 0;
+  padding: clamp(14px, 1.4vw, 22px);
   border-left: 4px solid #e2b85c;
   background: rgba(226, 184, 92, 0.1);
   color: #fff1c7;
-  font-size: 20px;
+  font-size: clamp(15px, 1.25vw, 20px);
   line-height: 1.7;
 }
 
@@ -716,7 +717,7 @@
 .safetyModule,
 .extensionModule {
   overflow: hidden;
-  padding: clamp(24px, 2vw, 36px);
+  padding: clamp(14px, 1.8vw, 32px);
 }
 
 .overviewMapBand {
@@ -1336,18 +1337,22 @@
 
 .keyDisasterGrid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin-top: 22px;
+  align-items: stretch;
+  margin-top: 18px;
 }
 
 .keyDisasterCard {
   position: relative;
+  display: grid;
   overflow: hidden;
-  min-height: clamp(390px, 52vh, 540px);
-  padding: 22px;
+  min-height: clamp(430px, 58vh, 560px);
+  grid-template-rows: minmax(178px, 42%) minmax(0, 1fr);
+  padding: 0;
   border-radius: 18px;
   background:
     linear-gradient(180deg, rgba(4, 16, 24, 0.02), rgba(4, 16, 24, 0.72)),
     rgba(255, 255, 255, 0.045);
+  box-shadow: inset 0 0 0 1px rgba(120, 217, 231, 0.14);
   transition: border-color 180ms ease, transform 180ms ease, box-shadow 180ms ease;
 }
 
@@ -1357,16 +1362,13 @@
   transform: translateY(-3px);
 }
 
-.keyDisasterCard .assetSlotCompact {
-  margin-top: 14px;
-}
-
 .keyScene {
   display: block;
   position: relative;
   overflow: hidden;
-  height: 180px;
-  margin: -22px -22px 20px;
+  height: 100%;
+  min-height: 178px;
+  margin: 0;
   background:
     radial-gradient(circle at 70% 20%, rgba(226, 184, 92, 0.2), transparent 24%),
     linear-gradient(145deg, #294455, #17231f);
@@ -1393,21 +1395,36 @@
   display: grid;
   height: 100%;
   place-items: center;
-  color: #ffe6a4;
-  font-size: 28px;
-  font-weight: 900;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(120, 217, 231, 0.18), transparent 24%),
+    linear-gradient(135deg, rgba(44, 74, 84, 0.9), rgba(20, 32, 29, 0.98));
 }
 
 .riskTag {
   display: inline-flex;
   width: fit-content;
-  margin-bottom: 12px;
+  margin-bottom: 2px;
   padding: 5px 9px;
   border: 1px solid rgba(255, 101, 84, 0.32);
   border-radius: 999px;
   background: rgba(255, 101, 84, 0.1);
   color: #ffb0a5;
   font-size: 12px;
+}
+
+.keyCardBody {
+  display: grid;
+  min-height: 0;
+  grid-template-rows: auto auto auto minmax(0, 1fr) auto;
+  gap: 9px;
+  padding: 18px;
+}
+
+.keyCardBody dl {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  align-content: start;
 }
 
 .keyDisasterCard[data-hazard='landslide'] .keyScene {
@@ -1428,20 +1445,41 @@
     linear-gradient(145deg, #304c56, #536047 52%, #2a251b);
 }
 
+.keyDisasterCard[data-hazard='landslide'] {
+  --key-accent: #55e28b;
+}
+
+.keyDisasterCard[data-hazard='collapse'] {
+  --key-accent: #e2b85c;
+}
+
+.keyDisasterCard[data-hazard='debris-flow'] {
+  --key-accent: #57cce0;
+}
+
+.keyDisasterCard[data-hazard] .riskTag {
+  border-color: color-mix(in srgb, var(--key-accent) 48%, transparent);
+  background: color-mix(in srgb, var(--key-accent) 14%, transparent);
+  color: color-mix(in srgb, var(--key-accent) 68%, white);
+}
+
 .keyDisasterCard h2 {
   margin: 0;
-  font-size: 34px;
+  font-size: clamp(28px, 2.1vw, 36px);
+  line-height: 1.04;
 }
 
 .keyDisasterCard p,
 .keyDisasterCard dd {
+  margin: 0;
   color: #d8e9e7;
-  line-height: 1.55;
+  line-height: 1.45;
 }
 
 .keyDisasterCard dt {
-  margin-top: 14px;
-  color: #e2b85c;
+  margin-top: 4px;
+  color: var(--key-accent, #e2b85c);
+  font-size: 13px;
   font-weight: 900;
 }
 
@@ -1453,6 +1491,13 @@
   color: #06111d;
   font-weight: 900;
   cursor: pointer;
+}
+
+.keyDisasterCard button {
+  width: 100%;
+  margin-top: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--key-accent, #57cce0), #aef3ff);
 }
 
 .demoModule {
@@ -2039,7 +2084,8 @@
   z-index: 2;
   width: 100%;
   height: 100%;
-  min-height: 100%;
+  min-height: 0;
+  max-height: 100%;
   object-fit: cover;
   background: rgba(4, 16, 24, 0.72);
 }
@@ -2050,7 +2096,7 @@
   display: grid;
   place-content: center;
   gap: 8px;
-  min-height: 220px;
+  min-height: clamp(150px, 26vh, 220px);
   padding: 24px;
   color: #eaf8f5;
   text-align: center;
@@ -2387,7 +2433,7 @@
 .quizHero h1,
 .summaryHero h1 {
   margin: 0;
-  font-size: 46px;
+  font-size: clamp(30px, 2.8vw, 46px);
   line-height: 1.08;
 }
 
@@ -3137,6 +3183,26 @@
   color: #d8e9e7;
 }
 
+.definitionCopy,
+.labControls,
+.labResultPanel,
+.warningWall,
+.signalExplanation,
+.caseContent,
+.quizHero,
+.quizMainPanel,
+.summaryStage,
+.extensionDetailGrid {
+  min-height: 0;
+}
+
+.definitionCopy,
+.labControls,
+.labResultPanel,
+.caseContent {
+  overflow: auto;
+}
+
 .teacherPanel {
   overflow: auto;
   max-height: 100%;
@@ -3202,19 +3268,21 @@
 .courseTimeline {
   display: grid;
   grid-template-columns: repeat(15, minmax(0, 1fr));
-  gap: 5px;
-  overflow: hidden;
-  padding-bottom: 2px;
+  gap: 4px;
+  align-items: center;
+  overflow: visible;
+  min-height: 44px;
+  padding: 0;
   border-radius: 14px;
 }
 
 .timelineButton,
 .timelineButtonActive {
   display: grid;
-  min-height: 56px;
-  gap: 5px;
-  align-content: center;
-  padding: 7px;
+  position: relative;
+  min-height: 42px;
+  place-items: center;
+  padding: 5px 3px;
   border: 1px solid rgba(107, 209, 224, 0.18);
   border-radius: 12px;
   color: #d8e9e7;
@@ -3234,22 +3302,50 @@
 .timelineButton span,
 .timelineButtonActive span {
   display: grid;
-  width: 9px;
-  height: 9px;
+  width: 12px;
+  height: 12px;
   place-items: center;
   border-radius: 50%;
   background: rgba(120, 217, 231, 0.12);
   color: #78d9e7;
 }
 
+.timelineButtonActive span {
+  width: 18px;
+  background: linear-gradient(90deg, #57cce0, #e2b85c);
+  box-shadow: 0 0 16px rgba(87, 204, 224, 0.42);
+}
+
 .timelineButton strong,
 .timelineButtonActive strong {
-  display: -webkit-box;
+  position: absolute;
+  bottom: calc(100% + 7px);
+  left: 50%;
+  z-index: 20;
+  display: block;
   overflow: hidden;
-  font-size: 11px;
-  line-height: 1.25;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  max-width: min(220px, 34vw);
+  padding: 7px 10px;
+  border: 1px solid rgba(120, 217, 231, 0.22);
+  border-radius: 999px;
+  background: rgba(5, 18, 30, 0.94);
+  color: #eaf8f5;
+  font-size: 12px;
+  line-height: 1.2;
+  opacity: 0;
+  pointer-events: none;
+  text-overflow: ellipsis;
+  transform: translate(-50%, 4px);
+  transition: opacity 160ms ease, transform 160ms ease;
+  white-space: nowrap;
+}
+
+.timelineButton:hover strong,
+.timelineButton:focus-visible strong,
+.timelineButtonActive:hover strong,
+.timelineButtonActive:focus-visible strong {
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
 
 .timelineButton small,
@@ -3319,23 +3415,23 @@
 
 @media (max-height: 820px) and (min-width: 1100px) {
   .courseShell {
-    grid-template-rows: 62px minmax(0, 1fr) 56px;
-    gap: 7px;
-    padding: 8px 12px;
-  }
-
-  .courseHeader {
-    min-height: 62px;
-    grid-template-columns: minmax(260px, 1fr) minmax(180px, 230px) 210px 142px;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    gap: 5px;
     padding: 7px 10px;
   }
 
+  .courseHeader {
+    min-height: 52px;
+    grid-template-columns: minmax(240px, 1fr) minmax(145px, 210px) minmax(160px, 200px) 126px;
+    padding: 5px 8px;
+  }
+
   .courseHeader h1 {
-    font-size: 22px;
+    font-size: 19px;
   }
 
   .currentChapter {
-    padding: 8px 10px;
+    padding: 5px 8px;
   }
 
   .heroModule {
@@ -3352,8 +3448,14 @@
   }
 
   .heroSignal button {
-    min-height: 78px;
-    padding: 14px;
+    min-height: 64px;
+    padding: 10px;
+  }
+
+  .overviewMapBand {
+    min-height: 56px;
+    margin-top: 10px;
+    padding: 10px 14px;
   }
 
   .overviewModule,
@@ -3364,12 +3466,12 @@
   .quizModule,
   .summaryModule,
   .caseModule {
-    padding: 18px;
+    padding: 14px;
   }
 
   .definitionModule,
   .causeLabModule {
-    padding: 18px;
+    padding: 14px;
   }
 
   .definitionCopy h1,
@@ -3383,21 +3485,60 @@
   .quizHero h1,
   .summaryHero h1,
   .caseContent h1 {
-    font-size: 36px;
+    font-size: 31px;
   }
 
   .disasterCard {
-    min-height: 205px;
+    min-height: 178px;
+    grid-template-rows: minmax(74px, 34%) 1fr;
+  }
+
+  .disasterCard > div:last-child {
+    padding: 12px;
+  }
+
+  .disasterCard h2 {
+    margin: 5px 0;
+    font-size: 20px;
+  }
+
+  .disasterCard p,
+  .disasterCard small,
+  .disasterCard strong {
+    margin-top: 5px;
+    font-size: 12px;
+    line-height: 1.32;
   }
 
   .keyDisasterCard {
-    min-height: 360px;
-    padding: 18px;
+    min-height: 338px;
+    grid-template-rows: minmax(126px, 38%) minmax(0, 1fr);
+    padding: 0;
   }
 
   .keyScene {
-    height: 138px;
-    margin: -18px -18px 14px;
+    height: 126px;
+    min-height: 126px;
+    margin: 0;
+  }
+
+  .keyCardBody {
+    gap: 6px;
+    padding: 14px;
+  }
+
+  .keyDisasterCard h2 {
+    font-size: 25px;
+  }
+
+  .keyDisasterCard p,
+  .keyDisasterCard dd {
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  .keyDisasterCard dt {
+    margin-top: 2px;
   }
 
   .demoModule {
@@ -3448,12 +3589,37 @@
   }
 
   .safetyFlow {
-    margin: 12px 0;
+    margin: 6px 0;
   }
 
   .safetyFlow article {
-    min-height: 72px;
+    min-height: 58px;
+    padding: 8px;
+  }
+
+  .safetyFlow b {
+    width: 30px;
+    height: 30px;
+  }
+
+  .safetyFlow small {
+    font-size: 11px;
+    line-height: 1.32;
+  }
+
+  .warningGroup,
+  .warningGroupActive,
+  .signalExplanation {
     padding: 10px;
+  }
+
+  .warningGroup,
+  .warningGroupActive {
+    gap: 6px;
+  }
+
+  .safetyVisualColumn {
+    gap: 8px;
   }
 
   .safetySignalScene {
@@ -3467,6 +3633,23 @@
   .labControls,
   .labResultPanel {
     padding: 12px;
+  }
+
+  .labControls p,
+  .labResultPanel p,
+  .sliderControl small {
+    font-size: 12px;
+    line-height: 1.35;
+  }
+
+  .sliderControl {
+    gap: 5px;
+    margin-top: 10px;
+  }
+
+  .riskMeter {
+    margin-top: 12px;
+    padding: 10px;
   }
 
   .labResultPanel > strong {
@@ -3493,8 +3676,8 @@
 
   .timelineButton,
   .timelineButtonActive {
-    min-height: 62px;
-    padding: 6px;
+    min-height: 38px;
+    padding: 4px 2px;
   }
 
   .timelineButton strong,
@@ -3504,14 +3687,18 @@
 
   .timelineButton span,
   .timelineButtonActive span {
-    width: 19px;
-    height: 19px;
-    font-size: 10px;
+    width: 10px;
+    height: 10px;
+  }
+
+  .timelineButtonActive span {
+    width: 16px;
   }
 
   .caseModule {
-    grid-template-columns: minmax(0, 50%) minmax(330px, 1fr);
-    gap: 14px;
+    grid-template-columns: minmax(0, 52%) minmax(300px, 1fr);
+    gap: 12px;
+    padding: 14px;
   }
 
   .caseContent {
@@ -3534,11 +3721,11 @@
   }
 
   .quizCard {
-    padding: 20px;
+    padding: 16px;
   }
 
   .quizCard h2 {
-    font-size: 28px;
+    font-size: 24px;
   }
 
   .quizModule {
@@ -3561,6 +3748,16 @@
 
   .summaryStage {
     gap: 12px;
+  }
+
+  .summarySloganImage img {
+    max-height: clamp(140px, 26vh, 220px);
+  }
+
+  .summaryPrinciples span,
+  .recapPanel span {
+    padding: 7px 9px;
+    font-size: 12px;
   }
 
   .summaryCaseReel,
@@ -3644,7 +3841,7 @@
   }
 
   .heroModule {
-    min-height: 700px;
+    min-height: 100%;
     padding: 24px;
   }
 

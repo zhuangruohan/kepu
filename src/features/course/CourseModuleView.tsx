@@ -371,18 +371,20 @@ function KeyDisasterCards({
         {keyDisasterEntrances.map((item) => (
           <article className={styles.keyDisasterCard} data-hazard={item.id} key={item.id}>
             <KeyDisasterCover id={item.id} title={item.title} />
-            <strong className={styles.riskTag}>四川重点防范</strong>
-            <h2>{item.title}</h2>
-            <p>{item.scene}</p>
-            <dl>
-              <dt>前兆关键词</dt>
-              <dd>{item.warnings}</dd>
-              <dt>避险口诀</dt>
-              <dd>{item.rule}</dd>
-            </dl>
-            <button type="button" onClick={() => onSelectModule(item.targetModuleId)}>
-              进入演示
-            </button>
+            <div className={styles.keyCardBody}>
+              <strong className={styles.riskTag}>四川重点防范</strong>
+              <h2>{item.title}</h2>
+              <p>{item.scene}</p>
+              <dl>
+                <dt>前兆关键词</dt>
+                <dd>{item.warnings}</dd>
+                <dt>避险口诀</dt>
+                <dd>{item.rule}</dd>
+              </dl>
+              <button type="button" onClick={() => onSelectModule(item.targetModuleId)}>
+                进入演示
+              </button>
+            </div>
           </article>
         ))}
       </div>
@@ -396,7 +398,7 @@ function KeyDisasterCover({ id, title }: { id: string; title: string }) {
   return (
     <div className={styles.keyScene} data-hazard={id}>
       {hasImageError ? (
-        <span className={styles.keySceneFallback}>{title}</span>
+        <span className={styles.keySceneFallback} aria-hidden="true" />
       ) : (
         <img
           className={styles.keySceneImage}
@@ -980,7 +982,7 @@ function CourseSummary({ module }: Pick<CourseModuleViewProps, 'module'>) {
         </aside>
         {module.interaction.type === 'review' ? (
           <div className={styles.recapPanel}>
-            <strong>再来 5 道快速复盘题</strong>
+            <strong>再来 3 道快速复盘题</strong>
             <div>
               {reviewPrompts.slice(0, 3).map((item) => (
                 <span key={item}>{item}</span>
