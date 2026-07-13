@@ -14,6 +14,7 @@ export interface DisasterCaseStudy {
   sceneLabel: string;
   assetPath: string;
   videoPath?: string;
+  posterPath?: string;
   highlights: string[];
   dangerPoints: string[];
   correctAction: string;
@@ -54,6 +55,7 @@ export const disasterCaseStudies: DisasterCaseStudy[] = [
     sceneLabel: '暴雨后山坡异常',
     assetPath: '/assets/real/landslide.jpg',
     videoPath: '/assets/video/landslide/landslide-case-01.mp4',
+    posterPath: '/assets/video/landslide/landslide-poster-01.webp',
     highlights: ['暴雨后山坡裂缝', '树木歪斜', '房屋裂缝', '坡体可能下滑'],
     dangerPoints: ['不要在坡脚停留', '不要顺着滑坡方向往下跑', '不要返回危险区取物'],
     correctAction: '向两侧高处撤离，尽快离开滑坡运动范围。',
@@ -80,6 +82,7 @@ export const disasterCaseStudies: DisasterCaseStudy[] = [
     sceneLabel: '道路边坡落石风险',
     assetPath: '/assets/real/collapse.jpg',
     videoPath: '/assets/video/collapse/collapse-case-01.mp4',
+    posterPath: '/assets/video/collapse/collapse-poster-01.webp',
     highlights: ['陡坡危岩', '小石块不断掉落', '岩石裂缝', '坡脚危险区'],
     dangerPoints: ['坡脚是落石最容易影响的区域', '不要停留观察', '不要靠近围观'],
     correctAction: '远离陡坡下方，快速撤到安全区域。',
@@ -106,6 +109,7 @@ export const disasterCaseStudies: DisasterCaseStudy[] = [
     sceneLabel: '山区沟谷暴雨风险',
     assetPath: '/assets/real/debris-flow.jpg',
     videoPath: '/assets/video/debris-flow/debris-flow-case-01.mp4',
+    posterPath: '/assets/video/debris-flow/debris-flow-poster-01.webp',
     highlights: ['上游暴雨', '沟水变浑', '山谷轰鸣', '河水突然上涨或断流'],
     dangerPoints: ['桥下和沟谷低处危险', '不要顺沟谷跑', '不要回头拿东西'],
     correctAction: '往沟谷两侧高处逃，远离沟口和桥下。',

@@ -125,20 +125,24 @@ export const videoAssetSlots = [
     id: 'landslide-case',
     title: '滑坡案例视频位',
     assetPath: '/assets/video/landslide/landslide-case-01.mp4',
+    posterPath: '/assets/video/landslide/landslide-poster-01.webp',
   },
   {
     id: 'collapse-case',
     title: '崩塌案例视频位',
     assetPath: '/assets/video/collapse/collapse-case-01.mp4',
+    posterPath: '/assets/video/collapse/collapse-poster-01.webp',
   },
   {
     id: 'debris-flow-case',
     title: '泥石流案例视频位',
     assetPath: '/assets/video/debris-flow/debris-flow-case-01.mp4',
+    posterPath: '/assets/video/debris-flow/debris-flow-poster-01.webp',
   },
   {
     id: 'safety-warning-signals',
     title: '科学避险前兆识别视频位',
     assetPath: '/assets/video/safety/safety-warning-signals-01.mp4',
+    posterPath: '/assets/video/safety/safety-warning-signals-poster-01.webp',
   },
 ] as const;

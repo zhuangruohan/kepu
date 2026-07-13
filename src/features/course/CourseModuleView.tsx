@@ -312,6 +312,8 @@ function FormationDiagramPanel({ onClose }: { onClose: () => void }) {
         ) : (
           <img
             src={formationReferencePath}
+            loading="lazy"
+            decoding="async"
             alt="形成原因参考图"
             onError={() => setHasImageError(true)}
           />
@@ -395,6 +397,8 @@ function KeyDisasterCover({ id, title }: { id: string; title: string }) {
         <img
           className={styles.keySceneImage}
           src={keyDisasterCoverPaths[id]}
+          loading="lazy"
+          decoding="async"
           alt={`${title}真实场景`}
           onError={() => setHasImageError(true)}
         />
@@ -408,7 +412,6 @@ function DemoSection({
   demo,
   onSelectModule,
 }: Pick<CourseModuleViewProps, 'module' | 'onSelectModule'> & { demo: 'landslide' | 'collapse' | 'debris-flow' }) {
-  const videoSlot = findVideoSlot(demo);
   const [isLegendOpen, setIsLegendOpen] = useState(false);
   const caseTarget = demoCaseTargets[demo];
   const caseCta = {
@@ -444,21 +447,6 @@ function DemoSection({
           onToggle={() => setIsLegendOpen((value) => !value)}
         />
       </div>
-      <details className={styles.demoInfoDrawer}>
-        <summary>知识卡与素材位</summary>
-        <div>
-          <article className={styles.demoKnowledgeStrip}>
-            {module.keyPoints.slice(0, 4).map((point) => (
-              <span key={point}>{point}</span>
-            ))}
-          </article>
-          <div className={styles.demoReferenceRow}>
-            <CaseAssetSlot slot={findAssetSlot(demo)} />
-            {videoSlot ? <VideoAssetSlot slot={videoSlot} /> : null}
-            <StructureSummary demo={demo} />
-          </div>
-        </div>
-      </details>
     </section>
   );
 }
@@ -536,7 +524,10 @@ function SafetyVideoPanel() {
   const [hasVideoError, setHasVideoError] = useState(false);
 
   return (
-    <article className={styles.safetyVideoPanel}>
+    <article
+      className={styles.safetyVideoPanel}
+      style={{ '--asset-image': safetyVideo?.posterPath ? `url("${safetyVideo.posterPath}")` : 'none' } as CSSProperties}
+    >
       <div>
         <span>真实风险提示</span>
         <strong>前兆识别案例短片</strong>
@@ -548,6 +539,7 @@ function SafetyVideoPanel() {
           muted
           playsInline
           preload="metadata"
+          poster={safetyVideo.posterPath}
           src={safetyVideo.assetPath}
           title={safetyVideo.title}
           onError={() => setHasVideoError(true)}
@@ -575,7 +567,8 @@ function CaseStudyPage({
       <div className={styles.caseMediaPanel}>
         <CaseVideoPanel
           fallbackLabel={study.sceneLabel}
-          posterPath={study.assetPath}
+          fallbackImagePath={study.assetPath}
+          posterPath={study.posterPath}
           title={study.title}
           videoPath={study.videoPath}
         />
@@ -627,11 +620,13 @@ function CaseVideoPanel({
   title,
   videoPath,
   posterPath,
+  fallbackImagePath,
   fallbackLabel,
 }: {
   title: string;
   videoPath?: string;
   posterPath?: string;
+  fallbackImagePath?: string;
   fallbackLabel: string;
 }) {
   const [hasVideoError, setHasVideoError] = useState(false);
@@ -639,7 +634,12 @@ function CaseVideoPanel({
   return (
     <div
       className={styles.caseVideoFrame}
-      style={{ '--asset-image': posterPath ? `url("${posterPath}")` : 'none' } as CSSProperties}
+      style={
+        {
+          '--asset-image': posterPath ? `url("${posterPath}")` : 'none',
+          '--fallback-image': fallbackImagePath ? `url("${fallbackImagePath}")` : 'none',
+        } as CSSProperties
+      }
     >
       {videoPath && !hasVideoError ? (
         <video
@@ -648,7 +648,7 @@ function CaseVideoPanel({
           muted
           playsInline
           preload="metadata"
-          poster={posterPath}
+          poster={posterPath ?? fallbackImagePath}
           src={videoPath}
           title={title}
           onError={() => setHasVideoError(true)}
@@ -811,7 +811,13 @@ function ExtensionHazards({ module }: Pick<CourseModuleViewProps, 'module'>) {
       <div className={styles.extensionDetailGrid}>
         {extensionHazardDetails.map((item) => (
           <article className={styles.extensionDetailCard} data-scene={item.scene} key={item.id}>
-            <img className={styles.extensionDetailImage} src={item.imagePath} alt={`${item.title}真实示例`} />
+            <img
+              className={styles.extensionDetailImage}
+              src={item.imagePath}
+              alt={`${item.title}真实示例`}
+              loading="lazy"
+              decoding="async"
+            />
             <h2>{item.title}</h2>
             <p>{item.definition}</p>
             <dl>
@@ -1002,6 +1008,8 @@ function SummarySloganImage() {
     <figure className={styles.summarySloganImage}>
       <img
         src={imageSrc}
+        loading="lazy"
+        decoding="async"
         alt="生命安全最重要安全宣传口号"
         onError={() => {
           if (imageSrc === summarySloganWebpPath) {

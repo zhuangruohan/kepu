@@ -21,7 +21,7 @@ export function CourseShell() {
     <main className={styles.courseShell} data-mode={isTeacherMode ? 'teacher' : 'student'}>
       <header className={styles.courseHeader}>
         <div className={styles.brandBlock}>
-          <p className={styles.headerEyebrow}>应急科普互动课</p>
+          <p className={styles.headerEyebrow}>四川挪意威科技有限公司</p>
           <h1>地质灾害基础科普与防灾避险互动课程</h1>
         </div>
         <div className={styles.currentChapter}>
