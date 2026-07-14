@@ -811,23 +811,27 @@ function ExtensionHazards({ module }: Pick<CourseModuleViewProps, 'module'>) {
       <div className={styles.extensionDetailGrid}>
         {extensionHazardDetails.map((item) => (
           <article className={styles.extensionDetailCard} data-scene={item.scene} key={item.id}>
-            <img
-              className={styles.extensionDetailImage}
-              src={item.imagePath}
-              alt={`${item.title}真实示例`}
-              loading="lazy"
-              decoding="async"
-            />
-            <h2>{item.title}</h2>
-            <p>{item.definition}</p>
-            <dl>
-              <dt>常出现在哪里</dt>
-              <dd>{item.where}</dd>
-              <dt>主要危险</dt>
-              <dd>{item.danger}</dd>
-              <dt>发现后注意</dt>
-              <dd>{item.advice}</dd>
-            </dl>
+            <div className={styles.extensionDetailMedia}>
+              <img
+                className={styles.extensionDetailImage}
+                src={item.imagePath}
+                alt={`${item.title}真实示例`}
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div className={styles.extensionDetailContent}>
+              <h2>{item.title}</h2>
+              <p>{item.definition}</p>
+              <dl>
+                <dt>常出现在哪里</dt>
+                <dd>{item.where}</dd>
+                <dt>主要危险</dt>
+                <dd>{item.danger}</dd>
+                <dt>发现后注意</dt>
+                <dd>{item.advice}</dd>
+              </dl>
+            </div>
           </article>
         ))}
       </div>
